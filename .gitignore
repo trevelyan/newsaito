@@ -1,0 +1,11 @@
+package-lock.json
+node_modules
+node_modules/*
+lib/logs/*
+lib/options
+lib/options.good
+lib/options.debug
+
+
+
+
