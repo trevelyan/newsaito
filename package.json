@@ -16,7 +16,14 @@
     "url": "https://github.com/trevelyan/newsaito/issues"
   },
   "homepage": "https://github.com/trevelyan/newsaito#readme",
-  "dependencies": {},
+  "dependencies": {
+    "base-58": "0.0.1",
+    "crypto-browserify": "^3.12.0",
+    "merkle-tree-gen": "^1.1.0",
+    "node-cryptojs-aes": "^0.4.0",
+    "secp256k1": "^3.5.0",
+    "sha256": "^0.2.0"
+  },
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.2.0"
