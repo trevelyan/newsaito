@@ -1,0 +1,19 @@
+{
+  "name": "saito",
+  "version": "2.0.0",
+  "description": "big-data blockchain",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trevelyan/newsaito.git"
+  },
+  "author": "",
+  "license": "private",
+  "bugs": {
+    "url": "https://github.com/trevelyan/newsaito/issues"
+  },
+  "homepage": "https://github.com/trevelyan/newsaito#readme"
+}
