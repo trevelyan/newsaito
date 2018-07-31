@@ -1,25 +1,19 @@
-const chai = require('chai');
-const should = chai.should();
-const expect = chai.expect;
+const assert = require('chai').assert;
 
-const Mempool = require('../lib/saito/storage');
-
-var assert = require('assert');
+const Mempool = require('../lib/saito/mempool');
 
 describe('MEMPOOL', () => {
   const mempool = new Mempool();
 
   describe('Constructor', () => {
     it('should have all necessary fields for a Storage object', () => {
-      assert(storage.app !== undefined)
-      assert(storage.directory !== undefined)
+      assert(mempool.app !== undefined)
+      assert(mempool.directory !== undefined)
+      assert.deepEqual(mempool.transactions, [])
+      assert.deepEqual(mempool.downloads, [])
+      assert.deepEqual(mempool.blocks, [])
+      assert.deepEqual(mempool.recovered, [])
     });
   });
-
-  describe('Initialize', () => {
-    it('should import options file successfully ', () => {
-      assert(1,1)
-    });
-  })
 
 });

@@ -1,10 +1,6 @@
-const chai = require('chai');
-const should = chai.should();
-const expect = chai.expect;
+const assert = require('chai').assert;
 
 const Storage = require('../lib/saito/storage');
-
-var assert = require('assert');
 
 describe('STORAGE', () => {
   const storage = new Storage();

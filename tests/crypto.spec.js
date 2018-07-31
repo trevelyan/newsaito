@@ -1,10 +1,6 @@
-const chai = require('chai');
-const should = chai.should();
-const expect = chai.expect;
+const assert = require('chai').assert;
 
 const Crypto = require('../lib/saito/crypto');
-
-var assert = require('assert');
 
 // ***CRYPT***
 describe('CRYPTO', () => {

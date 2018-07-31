@@ -1,32 +1,13 @@
-// const chai = require('chai');
-// const should = chai.should();
-// const expect = chai.expect;
-
+const assert = require('chai').assert;
 const Transaction = require('../lib/saito/transaction');
-
-var assert = require('assert');
 
 
 describe('TRANSACTION', () => {
 
   const tx = new Transaction();
-  const txDefault = {
-    id: 1,
-    from: [],
-    to: [],
-    ts: '',
-    sig: '',
-    ver: 1,
-    path: [],
-    type: 0,
-    msg: {},
-    msig: '',
-    ps: 0
-  }
 
   describe('Constructor', () => {
     it('should contain all necessary values', () => {
-      assert.deepEqual(tx.transaction, txDefault)
       assert.notEqual(tx.transaction.id, undefined)
       assert.deepEqual(tx.transaction.from, [])
       assert.deepEqual(tx.transaction.to, [])

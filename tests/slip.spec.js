@@ -1,8 +1,4 @@
-// const chai   = require('chai');
-// const should = chai.should();
-// const expect = chai.expect;
-
-var assert = require('assert');
+const assert   = require('chai').assert;
 
 const Slip = require('../lib/saito/slip');
 
