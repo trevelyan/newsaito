@@ -12,7 +12,7 @@ describe('BLOCK', () => {
       assert.equal(block.block.prevhash, "")
       assert.equal(block.block.merkle, "")
       assert.equal(block.block.miner, "")
-      assert.equal(block.block.id, 1)
+      assert.equal(block.block.id, 0)
       assert.deepEqual(block.block.transactions, [])
       assert.equal(block.block.burn_fee, 2.0)
       assert.equal(block.block.fee_step, 0.000165)
