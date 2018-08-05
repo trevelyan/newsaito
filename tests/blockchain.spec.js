@@ -5,7 +5,7 @@ const Block = require('../lib/saito/block');
 const Blockchain = require('../lib/saito/blockchain');
 
 describe('BLOCKCHAIN', () => {
-  const bchain = new Blockchain();
+  const bchain = new Blockchain({});
 
   describe('Constructor', () => {
     it('should have all necessary fields for a Blockchain object', () => {
@@ -19,13 +19,15 @@ describe('BLOCKCHAIN', () => {
       var newblock = new Block();
       var tmpblock = bchain.returnLatestBlock();
 
-      tmpblock.block.unixtime = 0
-      newblock.block.unixtime = 0
+      tmpblock.block.creation_time = 0
+      newblock.block.creation_time = 0
 
       assert.instanceOf(tmpblock, Block);
       assert.deepEqual(tmpblock, newblock);
 
       bchain.blocks.push(tmpblock)
+
+      console.log(bchain);
 
       var return_block = bchain.returnLatestBlock();
       assert.deepEqual(tmpblock, return_block)
