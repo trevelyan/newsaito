@@ -15,5 +15,4 @@ describe('MEMPOOL', () => {
       assert.deepEqual(mempool.recovered, [])
     });
   });
-
 });
