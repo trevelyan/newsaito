@@ -12,15 +12,9 @@ describe('MONITOR', () => {
     });
   });
 
-  describe('canBundleBlock', () => {
-    it(`should return the inverted boolean of bundling_active`, () => {
-      assert.equal(monitor.canBundleBlock(), true);
-    });
-  });
-
-  describe('returnBundlingActive', () => {
+  describe('isBundlingActive', () => {
     it(`should return bundling_active boolean`, () => {
-      assert.isBoolean(monitor.returnBundlingActive(), "returnBundlingActive returns a boolean value");
+      assert.isBoolean(monitor.isBundlingActive(), "returnBundlingActive returns a boolean value");
     });
   });
 
