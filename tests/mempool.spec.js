@@ -10,9 +10,8 @@ describe('MEMPOOL', () => {
       assert(mempool.app !== undefined)
       assert(mempool.directory !== undefined)
       assert.deepEqual(mempool.transactions, [])
-      assert.deepEqual(mempool.downloads, [])
-      assert.deepEqual(mempool.blocks, [])
-      assert.deepEqual(mempool.recovered, [])
+      assert.equal(mempool.bundling_speed, 1000);
+      assert.equal(mempool.bundling_timer, null);
     });
   });
 });
