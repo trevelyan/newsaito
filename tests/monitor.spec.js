@@ -12,17 +12,15 @@ describe('MONITOR', () => {
     });
   });
 
-  describe('isBundlingActive', () => {
+  describe('canBundleBlock', () => {
     it(`should return bundling_active boolean`, () => {
-      assert.isBoolean(monitor.isBundlingActive(), "returnBundlingActive returns a boolean value");
+      assert.isBoolean(monitor.canBundleBlock(), "canBundleBlock returns a boolean value");
     });
   });
 
-  describe('toggleBundlingActive', () => {
+  describe('isBlockchainActive', () => {
     it(`should return true if it's a private network`, () => {
-      assert.equal(monitor.bundling_active, false);
-      monitor.toggleBundlingActive();
-      assert.equal(monitor.bundling_active, true);
+      assert.isBoolean(monitor.isBlockchainActive());
     });
   });
 

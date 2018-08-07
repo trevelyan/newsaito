@@ -11,7 +11,7 @@ describe('BLOCK', () => {
       assert.isNumber(newblock.block.ts, "type of timestamp (ts)")
       assert.equal(newblock.block.prevhash, "")
       assert.equal(newblock.block.merkle, "")
-      assert.equal(newblock.block.miner, "")
+      assert.equal(newblock.block.creator, "")
       assert.equal(newblock.block.id, 0)
       assert.deepEqual(newblock.block.transactions, [])
       assert.deepEqual(newblock.block.bf, {})
