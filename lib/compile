@@ -24,7 +24,7 @@ else
     cp options.conf options
 fi
 
-./../node_modules/.bin/browserify browser.js -o saito/web/browser.js -i express -i sqlite3 -i express-basic-auth -i sendgrid -i request -i bluebird -i socket.io -i phantomjs -i express-fileupload -i body-parser -i shashmap -i http -i http-proxy -i simple-socks -i unzip -i node-zip -i shelljs -i crx -i jimp -i image-resolver
+#./../node_modules/.bin/browserify browser.js -o saito/web/browser.js -i express -i sqlite3 -i express-basic-auth -i sendgrid -i request -i bluebird -i socket.io -i phantomjs -i express-fileupload -i body-parser -i shashmap -i http -i http-proxy -i simple-socks -i unzip -i node-zip -i shelljs -i crx -i jimp -i image-resolver
 
 # -i winston -i winston-daily-rotate-file
 
