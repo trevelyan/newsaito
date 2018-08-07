@@ -13,12 +13,13 @@ describe('MONITOR', () => {
   describe('Constructor', () => {
     it('should have all necessary fields for a Block object', () => {
       assert(monitor.app !== undefined);
+      assert.equal(monitor.bundling_active, false);
     });
   });
 
-  describe('canBundleBlock', () => {
+  describe('canMempoolBundleBlock', () => {
     it(`should let us know we cannot do this, because we are unpermissive creatures`, () => {
-      assert(monitor.canBundleBlock() == false);
+      assert(monitor.canMempoolBundleBlock() == false);
     });
   });
 
