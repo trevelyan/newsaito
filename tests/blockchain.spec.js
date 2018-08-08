@@ -1,11 +1,10 @@
 const assert = require('chai').assert
 const saito = require('../lib/saito')
 
-const Block = require('../lib/saito/block');
-const Blockchain = require('../lib/saito/blockchain');
-
 describe('BLOCKCHAIN', () => {
-  const bchain = new Blockchain({});
+  var app = {};
+  app.mempool = new saito.mempool(app);
+  const bchain = new saito.blockchain(app);
 
   describe('Constructor', () => {
     it('should have all necessary fields for a Blockchain object', () => {
