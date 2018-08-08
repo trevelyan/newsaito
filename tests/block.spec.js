@@ -1,12 +1,13 @@
 const assert = require('chai').assert
 
 const Big = require('big.js');
-const Block = require('../lib/saito/block');
+const saito = require('../lib/saito');
+// const Block = require('../lib/saito/block');
 
 describe('BLOCK', () => {
- 
   var app = {};
-  const newblock = new Block(app);
+  app.crypto = new saito.crypto();
+  var newblock = new saito.block(app);
 
   describe('Constructor', () => {
     it('should have all necessary fields for a Block object', () => {
@@ -25,6 +26,23 @@ describe('BLOCK', () => {
       assert.equal(newblock.block.vote, 0)
       assert.equal(newblock.confirmations, -1)
     });
+  });
+
+  describe('returnHash', () => {
+    it('should return a string of the hash created from signatureSource()', () => {
+      assert.isString(newblock.returnHash());
+    });
+
+    it('should return the same value after multiple calls', () => {
+      let hash = newblock.returnHash();
+      assert.equal(hash, newblock.returnHash());
+    });
+  });
+
+  describe('returnSignatureSource', () => {
+    it('should return a string', () => {
+      assert.isString(newblock.returnSignatureSource());
+    })
   });
 
 });
