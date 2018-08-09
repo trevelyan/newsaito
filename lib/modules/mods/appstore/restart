@@ -1,0 +1,39 @@
+
+#
+# THIS IS RUN AS PART OF NORMAL INSTALLATION
+#
+# It copies the entire Saito install into the
+# subdirectory "saitolib" which will be used
+# to generate the Chrome Extension
+#
+rm -rf modules/mods/appstore/saitolib
+rm -rf modules/mods/appstore/web/cache/*
+mkdir modules/mods/appstore/saitolib
+mkdir -p modules/mods/appstore/saitolib/modules/mods
+mkdir -p modules/mods/appstore/saitolib/saito
+mkdir -p modules/mods/appstore/saitolib/data
+touch modules/mods/appstore/web/cache/README.txt
+touch modules/mods/appstore/saitolib/README.txt
+touch modules/mods/appstore/saitolib/data/README.txt
+
+for d in modules/mods/* ; do
+ if [ -f $d/saitolib/README.txt ] ; then
+   echo "NOT COPYING AppStore"
+ else
+   echo "COPYING $d"
+   cp -rf $d modules/mods/appstore/saitolib/$d
+ fi
+done
+
+cp browser.js modules/mods/appstore/saitolib/
+cp saito.js modules/mods/appstore/saitolib/
+cp options.conf modules/mods/appstore/saitolib/
+cp compile modules/mods/appstore/saitolib/
+cp -rf saito modules/mods/appstore/saitolib/
+rm -f modules/mods/appstore/saitolib/saito/web/browser.j*
+cp -rf ../extras/chrome modules/mods/appstore/saitolib/chrome
+cp modules/template.js modules/mods/appstore/saitolib/modules/template.js
+cp modules/mods.js modules/mods/appstore/saitolib/modules/mods.js
+
+
+

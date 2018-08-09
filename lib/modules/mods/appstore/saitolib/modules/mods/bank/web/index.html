@@ -1,0 +1,60 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Saito Token Faucet</title>
+
+  <script type="text/javascript" src="/jquery/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="/jquery/jquery-ui.min.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/jquery/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="/faucet/style.css" />
+
+  <link rel="icon" media="all" type="image/x-icon" href="/favicon.ico?v=2"/>
+
+</head>
+<body>
+
+  <div id="Bank_browser_active"></div>
+
+  <div class="header">
+    <a href="/" class="logo_link">
+      <img src="/img/saito_logo_black.png" class="logo" />
+      <div class="logo_text">saito</div>
+    </a>
+  </div>
+
+  <div class="main" id="main">
+
+    The Bank of Saito attempts to keep your tokens active by periodically resending
+    them across the blockchain. The fees necessary to transmit payments will be 
+    deducted from your account.
+
+    <p></p>
+
+    To use the Bank of Saito, select the bank module from within our default email
+    client. You will have the option of depositing money, checking your balance, or
+    withdrawing tokens. 
+   
+    <p></p>
+
+    Please be aware that this software is under-development, and the developers 
+    make no guarantees of security or token permanence. A small amount of tokens 
+    will also be removed from your account over time as part of the process of keeping
+    your tokens on-chain. If you are concerned about protecting your SAITO tokens, 
+    and want full control over the process you should use our regular tools to rebroadcast
+    your transactions manually.
+
+  </div>
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/browser.js"></script>
+
+</body>
+</html>
+

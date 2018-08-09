@@ -1,0 +1,98 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Saito Email</title>
+
+  <script type="text/javascript" src="/jquery/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="/jquery/jquery-ui.min.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/jquery/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="/email/style.css" />
+
+  <link rel="icon" media="all" type="image/x-icon" href="/favicon.ico?v=2"/>
+
+</head>
+
+<body>
+
+  <div id="Email_browser_active"></div>
+
+
+  <!-- <div class="email-container"> -->
+  <div class="header">
+    <a href="/" class="logo_link">
+      <img src="/img/saito_logo_black.png" class="logo" />
+      <div id="saitoname" class="logo_text">saito mail</div>
+    </a>
+  </div>
+
+
+  <div class="loader">
+    Saito is currently loading....
+    <p></p>
+    We are downloading the application itself into your browser from our server in Los Angeles. The download is reasonably fast in the United States, but can take up to a minute in China due to its size (~1.6 MB). Please be patient.
+  </div>
+
+
+  <div class="main">
+
+    <div class="sidebar">
+      <div class="compose" id="compose">COMPOSE</div>
+      <div class="mailboxes" id="mailboxes">
+        <div id="mailbox_inbox" class="mailbox active">Inbox</div>
+        <div id="mailbox_sent" class="mailbox">Sent</div>
+      </div>
+    </div>
+
+
+
+    <div class="mail-header">
+      <div class="mail-controls">
+
+        <div class="mail-controls-back mail-controls-btn" id="mail-controls-back"><i class="fa fa-arrow-left returnButton"></i></div>
+
+        <div class="mail-module-label" id="mail-module-label">Settings Module</div>
+
+
+        <div class="mail-controls-settings mail-controls-btn" id="mail-controls-settings"><i class="fa fa-cog"></i></div>
+        <div id="primary_nav_wrap" class="mail-controls-apps mail-controls-btn">
+          <ul>
+            <li><a href="#"><div id="mail-controls-apps"><i class="fa fa-bars" aria-hidden="true"></i></div></a>
+              <ul class="mail-controls-apps-menu">
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mail-controls-delete mail-controls-btn" id="mail-controls-delete"><i class="fa fa-trash-o"></i></div>
+      </div>
+      <div id="mail-alertbox" class="mail-alertbox"></div>
+      <div class="mail-balance">
+        <div class="balance" id="balance">SAITO</div>
+        <div class="balance-money" id="balance-money">0</div>
+      </div>
+    </div>
+
+    <div class="mail">
+      <div class="message" id="message" style="display:none"></div>
+      <table class="message-table" id="message-table"></table>
+    </div>
+
+  </div>
+  <!-- </div> -->
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/browser.js"></script>
+  <script src="/email/script.js"></script>
+
+</body>
+
+</html>

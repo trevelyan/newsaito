@@ -1,0 +1,25 @@
+
+function Mods(app) {
+
+  if (!(this instanceof Mods)) {
+    return new Mods(app);
+  }
+
+  this.app     = app;
+  this.mods    = [];
+
+  return this;
+
+}
+module.exports = Mods
+
+
+
+////////////////////////
+// Initialize Modules //
+////////////////////////
+Mods.prototype.pre_initialize = function pre_initialize() {
+
+  ////////////////////
+  // Insert Modules //
+  ////////////////////
