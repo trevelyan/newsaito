@@ -1,0 +1,39 @@
+{
+  "name": "saito",
+  "version": "2.0.0",
+  "description": "big-data blockchain",
+  "main": "start.js",
+  "scripts": {
+    "start": "NODE_ENV=dev node lib/start.js",
+    "test": "NODE_ENV=test mocha 'tests/*.spec.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trevelyan/newsaito.git"
+  },
+  "author": "",
+  "license": "private",
+  "bugs": {
+    "url": "https://github.com/trevelyan/newsaito/issues"
+  },
+  "homepage": "https://github.com/trevelyan/newsaito#readme",
+  "dependencies": {
+    "base-58": "0.0.1",
+    "big.js": "^5.1.2",
+    "bluebird": "^3.5.1",
+    "browserify": "^16.2.2",
+    "crypto-browserify": "^3.12.0",
+    "fs-extra": "^7.0.0",
+    "merkle-tree-gen": "^1.1.0",
+    "node-cryptojs-aes": "^0.4.0",
+    "secp256k1": "^3.5.0",
+    "sha256": "^0.2.0",
+    "sqlite": "^2.9.2",
+    "winston": "^3.0.0",
+    "winston-daily-rotate-file": "^3.3.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
