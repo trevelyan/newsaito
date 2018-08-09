@@ -2,6 +2,7 @@
 rm -f saito/web/client.options
 rm -f remixtmp.js
 rm -f saito/web/browser.js.gz
+rm -f saito/web/browser.js-*
 rm -f data/database.sq3
 rm -f data/bank.sq3
 rm -f data/registry.sq3
