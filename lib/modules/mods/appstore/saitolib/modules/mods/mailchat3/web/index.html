@@ -1,0 +1,366 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Saito Email</title>
+
+  <script type="text/javascript" src="/pace/pace.js"></script>
+  <link rel="stylesheet" href="/pace/pace-theme-flat-top.css" type="text/css" media="screen" />
+
+  <script type="text/javascript" src="/jquery/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="/jquery/jquery-ui.min.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/jquery/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css" media="screen" />
+
+  <link rel="stylesheet" type="text/css" href="/chat/style.css" />
+  <link rel="stylesheet" type="text/css" href="/email/style.css" />
+
+  <link rel="icon" media="all" type="image/x-icon" href="/favicon.ico?v=2"/>
+
+</head>
+
+<body>
+
+  <div id="Email_browser_active"></div>
+
+  <div class="header">
+    <a href="/" class="logo_link">
+      <img src="/img/saito_logo_black.png" class="logo" />
+      <div id="saitoname" class="logo_text">saito mail</div>
+    </a>
+  </div>
+
+
+  <div class="loader">
+    Saito is currently loading....
+    <p></p>
+    We are downloading the application itself into your browser from our server in Los Angeles. The download is reasonably fast in the United States, but can take up to a minute in China due to its size (~1.6 MB). Please be patient.
+  </div>
+
+
+  <div class="main" style="display:none">
+
+    <div class="sidebar">
+      <div class="compose" id="compose">COMPOSE</div>
+      <div class="mailboxes" id="mailboxes">
+        <div id="mailbox_inbox" class="mailbox active">Inbox</div>
+        <div id="mailbox_sent" class="mailbox">Sent</div>
+      </div>
+      <div id="blockchain_syncfade">
+        <div id="blockchain_synclabel">syncing blocks...</div>
+        <div id="blockchain_syncbox">
+          <div id="blockchain_syncbar">
+          </div>
+        </div>
+      </div>
+      <div class="sidechat" id="sidechat">
+      </div>
+      <div class="sidechat_controls" id="sidechat_controls">
+        <div class="sidechat_controls_add" id="sidechat_controls_add">add</div>
+        <div class="sidechat_controls_info" id="sidechat_controls_info">info</div>
+      </div>
+    </div>
+
+
+
+    <div class="mail-header">
+      <div class="mail-controls">
+
+        <div class="mail-controls-back mail-controls-btn" id="mail-controls-back"><i class="fa fa-arrow-left returnButton"></i></div>
+
+        <div class="mail-module-label" id="mail-module-label">Settings Module</div>
+
+        <div id="primary_nav_wrap" class="mail-controls-apps mail-controls-btn">
+          <ul>
+            <li><a href="#"><div id="mail-controls-apps"><i class="fa fa-bars" aria-hidden="true"></i></div></a>
+              <ul class="mail-controls-apps-menu">
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="mail-controls-delete mail-controls-btn" id="mail-controls-delete"><i class="fa fa-trash-o"></i></div>
+      </div>
+      <div id="mail-alertbox" class="mail-alertbox"></div>
+      <div class="mail-balance">
+        <div class="balance" id="balance">SAITO</div>
+        <div class="balance-money" id="balance-money">0</div>
+      </div>
+    </div>
+
+    <div class="mail">
+      <div class="message" id="message" style="display:none"></div>
+      <table class="message-table" id="message-table"></table>
+    </div>
+  </div>
+
+
+  <div class="mail_chat_popup" style="display:none">
+
+    <div id="Chat_browser_active"></div>
+    <div id="chat_container">
+
+      <section id="chat_header">
+        <div style="display:flex; flex-direction: row;width: 207px;">
+          <img id="chat_saitoLogo" src="/img/saito_logo_black.png" />
+          <div id="chat_saitoText" style="font-family:Georgia;padding-top:5px;color:#444;">chat</div>
+        </div>
+        <select class="chat_chat-room-selector">
+        </select>
+      </section>
+
+      <div id="chat_main" class="chat_chat_main">
+        <section id="chat_messages-list">Messages:</section>
+        <section id="chat_messages-list">
+          <ul class="chat_messages-list" id="All">
+            <p id="chat_message_id_0" class="chat_message"><i>BearGuy</i>: Welcome to Saito!</p>
+          </ul>
+        </section>
+      </div>
+
+      <section id="chat_new-message">
+        <input class="chat_new-message-input" id="chat_new-message-input"></input>
+      </section>
+
+    </div>
+  </div>
+
+
+  <style class="text/css">
+    #chat_saitoLogo {
+      display:none;
+    }
+    #chat_saitoText {
+      padding-left: 5px;
+    }
+    .mail_chat_popup {
+      position: absolute;
+      right: 400px;
+      bottom: 500px;
+    }
+    #chat_main {
+      height:420px;
+    }
+    #chat_container {
+      max-width: 400px;
+      background-color: white;
+      border: 1px solid #a5a5a5;
+    }
+    .lightbox_message_to_address {
+      cursor:pointer;
+    }
+    .lightbox_message_from_address {
+      cursor:pointer;
+    }
+    .mail {
+      min-height: 400px;
+    }
+    .sidechat {
+     display:none;
+     border: 1px solid #a5a5a5;
+     width: 162px;
+     height: 300px;
+     max-width: 162px;
+     margin-left: auto;
+     margin-right: auto;
+     margin-top: 20px;
+     overflow-y: scroll;
+     overflow-x: none;
+    }
+    .sidechat_contact {
+     width: 140px;
+     height: 20px;
+     padding: 2px;
+     background-color: #fff;
+    }
+    .sidechat_contact:hover {
+     cursor: pointer;
+     width: 100%;
+     height: 20px;
+     padding: 2px;
+     background-color: #b1b1e5;
+    }
+    .sidechat_controls {
+     display:none;
+     width:164px;
+     margin-left:auto;
+     margin-right:auto;
+    }
+    .sidechat_controls_add {
+     float:left;
+     border-left:1px solid #a5a5a5;
+     border-bottom:1px solid #a5a5a5;
+     width:30px;
+     padding-top:4px;
+     padding-bottom:4px;
+     padding-left:6px;
+     padding-right:6px;
+     background-color:#f7f7f7;
+     border-right: 1px solid #a5a5a5;
+     cursor:pointer;
+    }
+    .sidechat_controls_info {
+     float:left;
+     border-bottom:1px solid #a5a5a5;
+     width:30px;
+     padding-top:4px;
+     padding-bottom:4px;
+     padding-left:6px;
+     padding-right:6px;
+     background-color:#f7f7f7;
+     border-right: 1px solid #a5a5a5;
+     cursor:pointer;
+    }
+
+
+    @media only screen and (max-width: 535px) {
+      .mail_chat_popup {
+        width:100%;
+        right: 0px;
+      }
+      #chat_container {
+        max-width:100%;
+        border: 0px;
+        border-top: 1px solid #a5a5a5
+      }
+    }
+
+
+
+
+  </style>
+  <script type="text/javascript">
+
+    var chat_container_height = 500;
+    var chat_messages = $("#All > p").length;
+    var sidechat_length = 0;
+
+    // check speed must be faster than init speed
+    var chat_check_speed = 3000;
+    var chat_init_speed  = 1000;
+
+
+    var chat_check_timer = setInterval(function() {
+      let tmpcm = $("#All > p").length;
+      if (tmpcm > chat_messages) {
+        chat_messages = tmpcm;
+        if (chat_container_height == 40) {
+          $('#chat_header').css('background-color','#9deca1');
+          $('#chat_saitoText').css('color', '#444');
+	  init_length = tmpcm;
+        }
+      }
+
+      // and check if we have added a user
+      if ($(".chat_chat-room-option").length > sidechat_length) {
+	initialize_sidechat();
+      }
+
+    }, chat_check_speed);
+
+
+    $('.sidechat_controls_add').off();
+    $('.sidechat_controls_add').on('click', function(e) {
+      let p = prompt('Provide email address or publickey of user to add:');
+      if (p != null) {
+        let cmd = "add "+p;
+        $('.chat_new-message-input').val(cmd);
+        var e = jQuery.Event("keypress");
+        e.which = 13;
+        $('.chat_new-message-input').trigger(e);
+      }
+    });
+
+
+    $('.sidechat_controls_info').off();
+    $('.sidechat_controls_info').on('click', function(e) {
+      alert("version 0.1");
+    });
+
+
+    $('#chat_header').off();
+    $('#chat_header').on('click', function(e) {
+
+      // check we are not chat-selector
+      if ($(e.target).is(".chat_chat-room-selector")) {
+        return;
+      }
+
+      // otherwise toggle divs
+      if (chat_container_height == 500) {
+        $('.mail_chat_popup').css('bottom','40px');
+        $('#chat_new-message').css('display','none');
+        $('.chat_chat-room-selector').css('display','none');
+        $('#chat_header').css('background-color','#fff');
+        $('#chat_saitoText').css('color','#a5a5a5');
+        chat_container_height = 40;
+      } else {
+        $('.mail_chat_popup').css('bottom','500px');
+        $('#chat_new-message').css('display','block');
+        $('.chat_chat-room-selector').css('display','block');
+        $('#chat_header').css('background-color','#fff');
+        $('#chat_saitoText').css('color','#444');
+        chat_container_height = 500;
+      }
+    });
+   // shrink chat
+    $('#chat_header').click();
+
+
+    setTimeout(function() { initialize_sidechat(); }, chat_init_speed);
+
+
+
+    function initialize_sidechat() {
+
+      $('.chat_chat-room-option').each(function() {
+
+        chat_messages = $("#All > p").length;
+        sidechat_length++;
+
+        if ($(this).html() != "All") {
+
+          $('.sidechat').show();
+          $('.sidechat_controls').show();
+
+          let n = $(this).html();
+          let v = $(this).val();
+          let h = '<div class="sidechat_contact" id="'+v+'">'+n+'</div>';
+          $('.sidechat').append(h);
+
+          $('.sidechat_contact').off();
+          $('.sidechat_contact').on('click', function() {
+            $('.chat_chat-room-selector').val($(this).attr('id'));
+            $('.chat_chat-room-selector').change();
+            if (chat_container_height < 500) { $('#chat_header').click(); }
+            $('#chat_new-message-input').focus();
+          });
+
+        }
+      });
+
+      if (sidechat_length > 1) {
+	$('.mail_chat_popup').show();
+      }
+
+    }
+
+  </script>
+
+
+
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/browser.js"></script>
+  <script src="/email/script.js"></script>
+
+</body>
+
+</html>

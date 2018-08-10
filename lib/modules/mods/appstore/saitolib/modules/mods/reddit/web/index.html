@@ -1,0 +1,141 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Saito R</title>
+
+  <script type="text/javascript" src="/pace/pace.js"></script>
+  <link rel="stylesheet" href="/pace/pace-theme-flat-top.css" type="text/css" media="screen" />
+
+  <script type="text/javascript" src="/jquery/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="/jquery/jquery-ui.min.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/jquery/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/fancybox/jquery.fancybox.pack.js"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox-buttons.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/fancybox/jquery.fancybox-buttons.js"></script>
+  <script type="text/javascript" src="/fancybox/jquery.fancybox-media.js"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox-thumbs.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/fancybox/jquery.fancybox-thumbs.js"></script>
+
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="/r/style.css" />
+
+  <link rel="icon" media="all" type="image/x-icon" href="/favicon.ico?v=2"/>
+
+</head>
+<body>
+
+  <div id="Reddit_browser_active"></div>
+  <div class="redditContainer">
+  <div class="header">
+    <a href="/" style="text-decoration:none;color:inherits">
+      <img src="/img/saito_logo_black.png" class="logo" />
+    </a>
+    <a href="/r/" style="text-decoration:none;color:inherits">
+      <div id="subreddit_link" style="font-family:Georgia;padding-top:5px;font-size:1.2em;color:#444;">/r/</div>
+    </a>
+  </div>
+
+
+  <div class="loader">
+    Saito is currently loading....
+    <p></p>
+    We are downloading the application itself into your browser from our server in Los Angeles. The download is reasonably fast in the United States, but can take up to a minute in China due to its size (~1.6 MB). Please be patient.
+  </div>
+
+  <div class="main" style="display:none">
+
+    <div class="posts_container">
+      <div id="submit_post" class="submit_post">
+        <div class="submit_exit">&times;</div>
+        <div for="submit_title" class="submit_title_label" id="submit_title_label">title:</div>
+        <input type="text" class="submit_title" id="submit_title" name="submit_title" />
+        <br />
+        <div for="submit_link" class="submit_link_label" id="submit_link_label">url: <span style="font-size:0.9em"><i>(optional)</i></span> [<a href="https://imgur.com/" onclick="window.open(this.href, 'mywin', 'left=20,top=20,width=800,height=600,toolbar=1,resizable=0'); return false;" id="image_upload" class="image_upload">upload image</a>]</div>
+        <input type="text" class="submit_link" id="submit_link" name="submit_link" />
+        <br />
+        <div for="submit_text" class="submit_text_label" id="submit_text_label">discussion:</div>
+        <textarea class="submit_text" id="submit_text" name="submit_text"></textarea>
+        <br />
+        <div for="submit_r" class="submit_r_label" id="submit_r_label">subreddit:</div>
+        <input type="text" class="submit_r" id="submit_r" name="submit_r" />
+        <br />
+        <input type="button" class="submit_button" id="submit_button" value="publish to network" />
+      </div>
+      <div class="loading_posts" id="loading_posts">Loading....</div>
+      <div class="posts" id="posts">&nbsp;</div>
+      <div class="paginate" id="paginate">
+	<div class="last" id="last">last</div>
+	<div class="page" id="page"></div>
+	<div class="next" id="next">next</div>
+      </div>
+
+    </div>
+
+    <div class="sidebar" id="sidebar">
+      <input type="button"  class="submit" id="submit" value="create" name="submit" />
+
+      <div class="balance" id="balance">
+        <div class="saitoname" id="saitoname">loading...</div>
+        <div class="balance_money" id="balance_money">0.0</div>
+        <div class="balance_label" id="balance_label">SAITO</div>
+      </div>
+
+      <div class="advert-300-250" id="advert-300-250"></div>
+
+    </div>
+
+
+  </div>
+  </div>
+
+
+  <div style="display:none" id="lightbox_report" class="lightbox_report">
+
+    <h2>Report this Post:</h2>
+
+    <p>
+      Please report illegal content to our admins for review and delisting. If you are offended at non-illegal content, you can blacklist the poster:
+    </p>
+    <!-- <p></p> -->
+
+    <div>
+      <div class="report_post_button" id="report_post_button">report post</div>
+      <div class="blacklist_user_button" id="blacklist_user_button">blacklist user</div>
+    </div>
+
+    <!-- <p style="clear:both;padding-top:15px;"></p> -->
+
+    <p>
+      <b>A Note on Moderation Policy:</b>
+      We strive to respect freedom of speech, but acknowledge that our moderation policies will be entirely arbitrary: if you don't like them setup a Saito server, mirror the entire website and set your own policies.
+    </p>
+
+  </div>
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+
+    var subreddit = "";
+    var post_id = "";
+    var comment_id = "";
+    var load_content_on_load = 1;
+    var offset = 0;
+
+    $.ajaxSetup({ cache: true });
+    $.getScript( "/browser.js", function( data, textStatus, jqxhr ) {
+      $('.loader').hide();
+      $('.main').show();
+    });
+
+  </script>
+
+</body>
+</html>

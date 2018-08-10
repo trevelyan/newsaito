@@ -1,0 +1,5 @@
+if [ -d "modules/mods/remix/web/cache/" ]; then
+    rm -rf modules/mods/remix/web/cache/*
+else
+    mkdir modules/mods/remix/web/cache/
+fi
