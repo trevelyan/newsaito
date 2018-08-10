@@ -1,7 +1,6 @@
 .vscode
 .vscode/*
 options
-package-lock.json
 node_modules
 node_modules/*
 logs
@@ -15,5 +14,3 @@ lib/options.debug
 lib/options-bk
 lib/data/database.sq3
 lib/data/database.sq3-journal
-
-
