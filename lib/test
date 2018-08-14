@@ -1,8 +1,0 @@
-
-echo  $1
-
-if [$1 eq "nuke"] do
-  echo "Testing 2";
-fi
-
-
