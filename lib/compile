@@ -1,6 +1,25 @@
 
+if [ "$1" == "nuke" ]; then
 
-if [$1 eq "nuke"] ; then
+  echo ""
+  echo ""
+  echo "     _.-^^---....,,--        "
+  echo " _--                  --_    "
+  echo " <                        >) "
+  echo " |                         | "
+  echo "  \._                   _./  "
+  echo "     '''--. . , ; .--'''      " 
+  echo "          | |   |            " 
+  echo "       .-=||  | |=-.         "
+  echo "        -=#$%&%$#=-'         "
+  echo "          | ;  :|            "
+  echo "      .,-#%&$@%#&#~,         "
+  echo "  -------------------------  "
+  echo "  NUKING YOUR SAITO INSTALL  "
+  echo "  -------------------------  "
+  echo "  (resetting configuration)  " 
+  echo ""
+  echo ""
 
   rm -f data/database.sq3
   rm -f data/bank.sq3
@@ -15,13 +34,6 @@ if [$1 eq "nuke"] ; then
   rm -f options
   rm -f modules/mod/registry/web/addresses.txt
   rm -f logs/*
-
-#  if [ -e ./options.bank ]; then
-#    cp options.bank options
-#  elif [ -e ./options.server ]; then
-#    cp options.server options
-#  fi
-
 fi
 
   rm -f remixtmp.js
@@ -35,7 +47,7 @@ fi
 
 # generate browser.js
 sed 's/app.BROWSER    = 0;/app.BROWSER    = 1;/g' start.js > browser.js 
-./../node_modules/.bin/browserify browser.js -o saito/web/browser.js -i express -i sqlite3 -i express-basic-auth -i sendgrid -i request -i bluebird -i socket.io -i phantomjs -i express-fileupload -i body-parser -i shashmap -i http -i http-proxy -i simple-socks -i unzip -i node-zip -i shelljs -i crx -i jimp -i image-resolver
+./../node_modules/.bin/browserify browser.js -o saito/web/browser.js -i express -i sqlite3 -i express-basic-auth -i sendgrid -i request -i bluebird -i socket.io -i phantomjs -i express-fileupload -i body-parser -i shashmap -i http -i http-proxy -i simple-socks -i unzip -i node-zip -i shelljs -i crx -i jimp -i image-resolver -i fs-extra -i fs
 rm browser.js
 
 
@@ -44,7 +56,7 @@ rm browser.js
 
 
 
-if [$1 eq "nuke"]; then
+if [ "$1" == "nuke" ]; then
 
   for d in modules/mods/* ; do
    if [ -f $d/compile ] ; then
@@ -53,7 +65,7 @@ if [$1 eq "nuke"]; then
    fi
   done
 
-elif ["1" eq "1"]; then
+elsif
 
   for d in modules/mods/* ; do
    if [ -f $d/refresh ] ; then
@@ -71,16 +83,11 @@ echo ""
 echo "///////////////"
 echo "// IMPORTANT //"
 echo "///////////////"
-echo "please confirm your \"options\" file is properly configured. "
-echo "The simplest version that will work for a local install without"
-echo "support for built-in DNS or message-archiving is: "
+echo "Saito will default to running on a local, private network for "
+echo "development and testing unless you create a configuration file"
+echo "specifying a connection point to the public network.          "
 echo ""
-echo "{"
-echo "\"server\":{\"host\":\"localhost\",\"port\":12101,\"publickey\":\"\"}"
-echo "}"
-echo ""
-echo ""
-echo "once that is done, you can start Saito by running: "
+echo "You can start Saito by running: "
 echo ""
 echo "$> node start.js "
 echo ""
