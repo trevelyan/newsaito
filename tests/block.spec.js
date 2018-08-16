@@ -42,7 +42,28 @@ describe('BLOCK', () => {
   describe('returnSignatureSource', () => {
     it('should return a string', () => {
       assert.isString(newblock.returnSignatureSource());
-    })
+    });
   });
 
+  describe('returnMaxTxId', () => {
+    it('should return this.maxtid if it exists', () => {
+      assert.equal(newblock.returnMaxTxId(), 0);
+    });
+
+    it('should return a greater number if it finds one', () => {
+      newblock.transactions.push(new saito.transaction());
+      assert.equal(newblock.returnMaxTxId(), 1);
+    });
+  });
+
+  describe('returnMinTxId', () => {
+    it('should return this.mintid if it exists', () => {
+      assert.equal(newblock.returnMinTxId(), 1)
+    });
+
+    it('should return the lesser number of all that it finds', () => {
+      newblock.transactions.push(new saito.transaction());
+      assert.equal(newblock.returnMinTxId(), 1);
+    });
+  });
 });
