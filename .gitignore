@@ -13,6 +13,7 @@ lib/options
 lib/options.good
 lib/options.debug
 lib/options-bk
+lib/saito/web/browser.js
 lib/data/database.sq3
 lib/data/database.sq3-journal
 
