@@ -8,8 +8,8 @@ if [ "$1" == "nuke" ]; then
   echo " <                        >) "
   echo " |                         | "
   echo "  \._                   _./  "
-  echo "     '''--. . , ; .--'''      " 
-  echo "          | |   |            " 
+  echo "     '''--. . , ; .--'''     "
+  echo "          | |   |            "
   echo "       .-=||  | |=-.         "
   echo "        -=#$%&%$#=-'         "
   echo "          | ;  :|            "
@@ -17,7 +17,7 @@ if [ "$1" == "nuke" ]; then
   echo "  -------------------------  "
   echo "  NUKING YOUR SAITO INSTALL  "
   echo "  -------------------------  "
-  echo "  (resetting configuration)  " 
+  echo "  (resetting configuration)  "
   echo ""
   echo ""
 
@@ -46,7 +46,7 @@ fi
 
 
 # generate browser.js
-sed 's/app.BROWSER    = 0;/app.BROWSER    = 1;/g' start.js > browser.js 
+sed 's/app.BROWSER    = 0;/app.BROWSER    = 1;/g' start.js > browser.js
 ./../node_modules/.bin/browserify browser.js -o saito/web/browser.js -i express -i sqlite3 -i express-basic-auth -i sendgrid -i request -i bluebird -i socket.io -i phantomjs -i express-fileupload -i body-parser -i shashmap -i http -i http-proxy -i simple-socks -i unzip -i node-zip -i shelljs -i crx -i jimp -i image-resolver -i fs-extra -i fs
 rm browser.js
 
