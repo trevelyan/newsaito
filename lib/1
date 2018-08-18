@@ -377,6 +377,7 @@ Storage.prototype.loadOptions = async function loadOptions() {
 
     }
 
+  //////////////
   // browsers //
   //////////////
   } else {
