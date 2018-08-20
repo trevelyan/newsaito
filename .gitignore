@@ -5,6 +5,7 @@ node_modules
 node_modules/*
 logs
 logs/*
+lib/1
 lib/logs/*
 lib/data
 lib/data/*
