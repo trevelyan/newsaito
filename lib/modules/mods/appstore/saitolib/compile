@@ -43,15 +43,14 @@ fi
 
 
 
-
-
 # generate browser.js
 sed 's/app.BROWSER    = 0;/app.BROWSER    = 1;/g' start.js > browser.js
-./../node_modules/.bin/browserify browser.js -o saito/web/browser.js -i express -i sqlite3 -i express-basic-auth -i sendgrid -i request -i bluebird -i socket.io -i phantomjs -i express-fileupload -i body-parser -i shashmap -i http -i http-proxy -i simple-socks -i unzip -i node-zip -i shelljs -i crx -i jimp -i image-resolver -i fs-extra -i fs
+./../node_modules/.bin/browserify browser.js -o saito/web/browser.js -i express -i sqlite3 -i express-basic-auth -i sendgrid -i request -i bluebird -i socket.io -i phantomjs -i express-fileupload -i body-parser -i shashmap -i http -i http-proxy -i simple-socks -i unzip -i node-zip -i shelljs -i crx -i jimp -i image-resolver -i fs-extra -i fs 
+
+#-i winston -i winston-daily-rotate-file
 rm browser.js
 
 
-# -i winston -i winston-daily-rotate-file
 
 
 

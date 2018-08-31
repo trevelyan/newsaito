@@ -18,7 +18,7 @@ touch modules/mods/appstore/saitolib/data/README.txt
 
 for d in modules/mods/* ; do
  if [ -f $d/saitolib/README.txt ] ; then
-   echo "NOT COPYING AppStore"
+   echo "NOT COPYING $d"
  else
    echo "COPYING $d"
    cp -rf $d modules/mods/appstore/saitolib/$d

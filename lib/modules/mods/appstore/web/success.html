@@ -8,17 +8,17 @@
 
   <title>Saito AppStore: Generating Custom Install</title>
 
-  <script type="text/javascript" src="/jquery/jquery-3.2.1.min.js"></script>
-  <link rel="stylesheet" href="/jquery/jquery-ui.min.css" type="text/css" media="screen" />
-  <script type="text/javascript" src="/jquery/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="/lib/jquery/jquery-ui.min.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/lib/jquery/jquery-ui.min.js"></script>
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
-  <script type="text/javascript" src="/fancybox/jquery.fancybox.pack.js"></script>
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox-buttons.css" type="text/css" media="screen" />
-  <script type="text/javascript" src="/fancybox/jquery.fancybox-buttons.js"></script>
-  <script type="text/javascript" src="/fancybox/jquery.fancybox-media.js"></script>
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox-thumbs.css" type="text/css" media="screen" />
-  <script type="text/javascript" src="/fancybox/jquery.fancybox-thumbs.js"></script>
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox-buttons.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-buttons.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-media.js"></script>
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox-thumbs.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-thumbs.js"></script>
 
   <link rel="stylesheet" type="text/css" href="/appstore/style.css" />
 
@@ -78,10 +78,7 @@
 	if (data.status == 1) {
 	  $('.loader').hide();
 	  $('.main').show();
-
         }
-        console.log("FETCHED DATA: "+JSON.stringify(data));
-        console.log("FETCHED DATA2: "+data);
       });
 
     }, 2000);
