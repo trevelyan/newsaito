@@ -1,10 +1,10 @@
 
-  if (this.app.options.modules == null) { 
-    this.app.options.modules = []; 
+  if (this.app.options.modules == null) {
+    this.app.options.modules = [];
     for (let i = 0; i < this.mods.length; i++) {
       mi = 0;
       for (let j = 0; j < this.app.options.modules.length; j++) { if (this.mods[i].name == this.app.options.modules[j]) { mi = 1; }}
-      if (mi == 0) { 
+      if (mi == 0) {
         this.mods[i].installModule(this.app);
         this.app.options.modules.push(this.mods[i].name);
       };
@@ -13,8 +13,6 @@
   }
 
 }
-
-
 
 Mods.prototype.affixCallbacks = function affixCallbacks(txindex, message, callbackArray, callbackIndexArray) {
   for (i = 0; i < this.mods.length; i++) {
@@ -36,6 +34,11 @@ Mods.prototype.displayEmailForm = function displayEmailForm(modname) {
     if (modname == this.mods[i].name) {
       if (this.mods[i].handlesEmail == 1) {
         this.mods[i].displayEmailForm(this.app);
+        for (ii = 0; ii < this.mods.length; ii++) {
+          if (this.mods[ii].name == "Email") {
+            this.mods[ii].active_module = modname;
+          }
+        }
       }
     }
   }
@@ -115,6 +118,21 @@ Mods.prototype.updateBalance = function updateBalance() {
   }
   return null;
 }
+Mods.prototype.updateBlockchainSync = function updateBlockchainSync(current, target) {
+  if (this.lowest_sync_bid == -1) { this.lowest_sync_bid = current; }
+  target = target-(this.lowest_sync_bid-1);
+  current = current-(this.lowest_sync_bid-1);
+  if (target < 1) { target = 1; }
+  if (current < 1) { current = 1; }
+  let percent_downloaded = 100;
+  if (target > current) {
+    percent_downloaded = Math.floor(100*(current/target));
+  }
+  for (i = 0; i < this.mods.length; i++) {
+    this.mods[i].updateBlockchainSync(this.app, percent_downloaded);
+  }
+  return null;
+}
 Mods.prototype.webServer = function webServer(expressapp) {
   for (i = 0; i < this.mods.length; i++) {
     this.mods[i].webServer(this.app, expressapp);
@@ -133,10 +151,4 @@ Mods.prototype.onChainReorganization = function onChainReorganization(block_id, 
   }
   return null;
 }
-
-
-
-
-
-
 

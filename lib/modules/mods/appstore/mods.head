@@ -1,4 +1,12 @@
 
+
+//
+// IF THIS FILE CHANGES, BE SURE TO UPDATE THE
+// COPY OF THE FILE IN THE APPSTORE MODULE DIR
+//
+// it uses a copy of this file to generate the
+// browser.js file needed by the chrome exts
+//
 function Mods(app) {
 
   if (!(this instanceof Mods)) {
@@ -7,6 +15,8 @@ function Mods(app) {
 
   this.app     = app;
   this.mods    = [];
+
+  this.lowest_sync_bid = -1;
 
   return this;
 
