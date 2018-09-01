@@ -25,7 +25,8 @@ for d in modules/mods/* ; do
  fi
 done
 
-cp browser.js modules/mods/appstore/saitolib/
+
+cp start.js modules/mods/appstore/saitolib/
 cp saito.js modules/mods/appstore/saitolib/
 cp options.conf modules/mods/appstore/saitolib/
 cp compile modules/mods/appstore/saitolib/
@@ -34,6 +35,7 @@ rm -f modules/mods/appstore/saitolib/saito/web/browser.j*
 cp -rf ../extras/chrome modules/mods/appstore/saitolib/chrome
 cp modules/template.js modules/mods/appstore/saitolib/modules/template.js
 cp modules/mods.js modules/mods/appstore/saitolib/modules/mods.js
+sed 's/app.BROWSER    = 0;/app.BROWSER    = 1;/g' start.js > modules/mods/appstore/saitolib/saito/web/browser.js
 
 
 

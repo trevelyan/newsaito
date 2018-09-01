@@ -25,7 +25,8 @@ for d in modules/mods/* ; do
  fi
 done
 
-cp browser.js modules/mods/appstore/saitolib/
+cp start.js modules/mods/appstore/saitolib/
+sed 's/app.BROWSER    = 0;/app.BROWSER    = 1;/g' modules/mods/appstore/saitolib/start.js > modules/mods/appstore/saitolib/browser.js 
 cp saito.js modules/mods/appstore/saitolib/
 cp options.conf modules/mods/appstore/saitolib/
 cp compile modules/mods/appstore/saitolib/
