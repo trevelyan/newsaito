@@ -34,6 +34,10 @@ if [ "$1" == "nuke" ]; then
   rm -f options
   rm -f modules/mod/registry/web/addresses.txt
   rm -f logs/*
+
+
+  cp -rfp data/fork1/* data/blocks/
+
 fi
 
   rm -f remixtmp.js
