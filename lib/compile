@@ -36,7 +36,7 @@ if [ "$1" == "nuke" ]; then
   rm -f logs/*
 
 
-  cp -rfp data/fork1/* data/blocks/
+#  cp -rfp data/fork1/* data/blocks/
 
 fi
 
