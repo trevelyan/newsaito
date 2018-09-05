@@ -1,6 +1,5 @@
 const assert = require('chai').assert;
 
-// const Mempool = require('../lib/saito/mempool');
 const saito = require('../lib/saito');
 
 describe('MEMPOOL', () => {

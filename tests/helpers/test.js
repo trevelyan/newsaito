@@ -2,63 +2,64 @@ const fs    = require('fs-extra');
 const saito = require('../../lib/saito');
 
 module.exports = {
-  async initSaito() {
+  async initSaito(config) {
+    
+    if (config !== null) {
+      await config.setup();
+    }
+
     // Variables
     var app             = {};
         app.BROWSER     = 0;
         app.SPVMODE     = 0;
 
     app.crypto          = new saito.crypto();
-    app.storage         = new saito.storage(app);
+    app.logger          = new saito.logger(app);
+    app.storage         = new saito.storage(app, config.storage.dest);
     app.mempool         = new saito.mempool(app);
     app.voter           = new saito.voter(app);
     app.wallet          = new saito.wallet(app);
     app.miner           = new saito.miner(app);
     app.monitor         = new saito.monitor(app);
-    app.keychain        = new saito.keychain(app);
+    app.browser         = new saito.browser(app);
+    app.archives        = new saito.archives(app);
+    app.dns             = new saito.dns(app);
+    app.keys            = new saito.keychain(app);
     app.network         = new saito.network(app);
     app.burnfee         = new saito.burnfee(app);
     app.blockchain      = new saito.blockchain(app);
     app.server          = new saito.server(app);
+    app.modules         = require('../../lib/modules/mods')(app);
 
     // Initialize
-    await app.storage.initialize();
-    // app.voter.initialize();
-    // app.wallet.initialize();
-    // app.mempool.initialize();
-    // app.blockchain.initialize();
-    // app.keys.initialize();
-    // app.network.initialize();
-    //
-    // archives before modules
-    //
-    // app.archives.initialize();
-    //
-    // dns before browser so modules can
-    // initialize with dns support
-    //
-    // app.dns.initialize();
-    //
-    // modules pre-initialized before
-    // browser, so that the browser
-    // can check which application we
-    // are viewing.
-    //
-    // app.modules.pre_initialize();
-    // app.browser.initialize();
-    // app.modules.initialize();
-    //
-    // server initialized after modules
-    // so that the modules can use the
-    // server to feed their own subpages
-    // as necessary
-    //
-    // app.server.initialize();
+    if (config.type == "lite") {
+      await app.storage.initialize(); 
+    } else {
+      await app.storage.initialize();
+      app.voter.initialize();
+      app.wallet.initialize();
+      app.mempool.initialize();
+      await app.blockchain.initialize();
+      app.keys.initialize();
+      app.network.initialize();
+      // app.archives.initialize();
+      app.dns.initialize();
+      app.modules.pre_initialize();
+      app.browser.initialize();
+      app.modules.initialize();
+      app.server.initialize();
+    }
 
     return app
   },
-  async tearDown() {
+  async tearDown(app) {
     await fs.unlink(`${__dirname}/../../lib/options`);
-    return;
+    await fs.remove(`../logs`);
+
+    app.server.close();
+    app.network.close();
+    app.mempool.stop();
+    process.exit(0);
+    // return;
   }
 };
