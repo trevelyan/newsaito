@@ -1,21 +1,26 @@
 const fs    = require('fs-extra');
+const path  = require('path');
 const saito = require('../../lib/saito');
 
+
 module.exports = {
+
+  // Creates a new instance of Saito to use for testing
   async initSaito(config) {
-    
+
     if (config !== null) {
       await config.setup();
     }
 
-    // Variables
+    var dir = path.join(__dirname, '../data');
+
     var app             = {};
         app.BROWSER     = 0;
         app.SPVMODE     = 0;
 
     app.crypto          = new saito.crypto();
     app.logger          = new saito.logger(app);
-    app.storage         = new saito.storage(app, config.storage.dest);
+    app.storage         = new saito.storage(app, dir, config.storage.dest);
     app.mempool         = new saito.mempool(app);
     app.voter           = new saito.voter(app);
     app.wallet          = new saito.wallet(app);
@@ -33,7 +38,7 @@ module.exports = {
 
     // Initialize
     if (config.type == "lite") {
-      await app.storage.initialize(); 
+      await app.storage.initialize();
     } else {
       await app.storage.initialize();
       app.voter.initialize();
@@ -42,7 +47,7 @@ module.exports = {
       await app.blockchain.initialize();
       app.keys.initialize();
       app.network.initialize();
-      // app.archives.initialize();
+      app.archives.initialize();
       app.dns.initialize();
       app.modules.pre_initialize();
       app.browser.initialize();
@@ -52,6 +57,7 @@ module.exports = {
 
     return app
   },
+
   async tearDown(app) {
     await fs.unlink(`${__dirname}/../../lib/options`);
     await fs.remove(`../logs`);
@@ -60,6 +66,5 @@ module.exports = {
     app.network.close();
     app.mempool.stop();
     process.exit(0);
-    // return;
   }
 };

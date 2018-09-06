@@ -1,0 +1,17 @@
+{
+    "ts": 1536113567364,
+    "prevhash": "",
+    "merkle": "",
+    "creator": "28mVjYhqEU7Lycv3i97gHjy8RXfMMnrrhAfegWuuT35x7",
+    "id": 1,
+    "txsjson": [],
+    "bf": {
+        "start": 200
+    },
+    "difficulty": 0.51,
+    "paysplit": 0.5,
+    "treasury": "10000000000",
+    "coinbase": "0",
+    "reclaimed": "0.0",
+    "vote": 0
+}
