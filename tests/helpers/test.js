@@ -60,6 +60,10 @@ module.exports = {
 
   async tearDown(app) {
     await fs.unlink(`${__dirname}/../../lib/options`);
+    await fs.unlink(`${__dirname}/../data/appstore.sq3`);
+    await fs.unlink(`${__dirname}/../data/bank.sq3`);
+    await fs.unlink(`${__dirname}/../data/database.sq3`);
+    await fs.remove(`${__dirname}/../data/env`);
     await fs.remove(`../logs`);
 
     app.server.close();

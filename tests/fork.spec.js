@@ -10,7 +10,7 @@ describe('FORK', () => {
   var app = {};
 
   const config = {
-    storage: { dest: "/env", src: "/fork_test_1" },
+    storage: { dest: "/env", src: "/forks/test_1" },
     setup: async () => {
       await fs.remove(`data/${config.storage.dest}`);
       await fs.copy(
@@ -31,7 +31,7 @@ describe('FORK', () => {
 
   describe('should handle forked block files successfully', () => {
     it('Saves all available block files to blockchain', () => {
-      console.log(app.blockchain);
+      //console.log(app.blockchain);
       assert.equal(app.blockchain.blocks.length, 9);
     });
 
