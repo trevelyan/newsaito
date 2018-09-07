@@ -1,0 +1,10 @@
+version: "3.0"
+services:
+    saito-1:
+        image: new-saito
+        ports: 
+            - "12101:12101"
+    saito-2:
+        image: new-saito
+        ports:
+            - "12102:12101"
