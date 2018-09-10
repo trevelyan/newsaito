@@ -2,9 +2,14 @@ version: "3.0"
 services:
     saito-1:
         image: new-saito
+        volumes:
+            - ./tests/config/node-1.json:/newsaito/lib/options
         ports: 
-            - "12101:12101"
+            - "8080:12101"
+
     saito-2:
         image: new-saito
+        volumes:
+            - ./tests/config/node-2.json:/newsaito/lib/options
         ports:
-            - "12102:12101"
+            - "8081:12101"

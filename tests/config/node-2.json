@@ -1,0 +1,12 @@
+{
+    "server": {
+        "host": "localhost",
+        "port": "12101"
+    },
+    "peers": [
+        {
+            "host": "",
+            "port": ""
+        }
+    ]
+}
