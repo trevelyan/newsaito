@@ -1,0 +1,21 @@
+{
+    "ts": 1536113587412,
+    "prevhash": "7c7771d4292fe51bdc675649f2e39a166e2c638c1ca93da5193f082ab9455ed8",
+    "merkle": "98dd47d7545dd4b58bc40e9f10b2913e8f159bce79484cfa199b1802e60b4f55",
+    "creator": "28mVjYhqEU7Lycv3i97gHjy8RXfMMnrrhAfegWuuT35x7",
+    "id": 3,
+    "txsjson": [
+        "{\"transaction\":{\"id\":2,\"from\":[{\"add\":\"28mVjYhqEU7Lycv3i97gHjy8RXfMMnrrhAfegWuuT35x7\",\"amt\":0,\"type\":1,\"bid\":0,\"tid\":0,\"sid\":0,\"bhash\":\"\",\"lc\":1,\"rn\":55}],\"to\":[{\"add\":\"28mVjYhqEU7Lycv3i97gHjy8RXfMMnrrhAfegWuuT35x7\",\"amt\":\"1250000000.00000000\",\"type\":1,\"bid\":0,\"tid\":0,\"sid\":0,\"bhash\":\"\",\"lc\":1,\"rn\":71},{\"add\":\"28mVjYhqEU7Lycv3i97gHjy8RXfMMnrrhAfegWuuT35x7\",\"amt\":\"1250000000.00000000\",\"type\":1,\"bid\":0,\"tid\":0,\"sid\":1,\"bhash\":\"\",\"lc\":1,\"rn\":41}],\"ts\":1536113583419,\"sig\":\"oTxwSjFRYMkv95k7unrLNLCae5kkPyqn23JwyEhStcJnHxVGAp1zsyduMntsynjsHeCfPEhYaZneDc7SmiBGdnF\",\"msig\":\"5qne6Wy4dawXnZL7owbpKiPDa5p1i2RQ8BPMbhhy7Qa2fU32QzdbnHLCdCU6w5bUcz5yh64Sm3x2SLSNXJPjQQvv\",\"ver\":1,\"path\":[],\"type\":1,\"msg\":{\"target\":\"7c7771d4292fe51bdc675649f2e39a166e2c638c1ca93da5193f082ab9455ed8\",\"vote\":1,\"random\":\"0.664678924834678\",\"name\":\"golden ticket\"},\"ps\":0},\"fees_total\":\"0.00000000\",\"fees_usable\":\"0.00000000\",\"fees_publickey\":\"\",\"dmsg\":\"\",\"size\":0,\"is_valid\":1}",
+        "{\"transaction\":{\"id\":3,\"from\":[{\"add\":\"28mVjYhqEU7Lycv3i97gHjy8RXfMMnrrhAfegWuuT35x7\",\"amt\":0,\"type\":2,\"bid\":0,\"tid\":0,\"sid\":0,\"bhash\":\"\",\"lc\":1,\"rn\":78}],\"to\":[{\"add\":\"28mVjYhqEU7Lycv3i97gHjy8RXfMMnrrhAfegWuuT35x7\",\"amt\":\"0.00000000\",\"type\":2,\"bid\":0,\"tid\":0,\"sid\":0,\"bhash\":\"\",\"lc\":1,\"rn\":87}],\"ts\":1536113587412,\"sig\":\"C3noLuCHezQzCadi4GZcVcNkFrmcrLiRF2jfsHk9eLM2M3khfobncyyrKMLY13x4Uon7cUW4fngxQikujDwCSr6\",\"msig\":\"3DNCHZnqwbmbeqjr4y53toUahKjdoH9zUNi9sbHrEYjVLivntqkZTSHyUcJXdJwtLQSpTcH9QfwCQ8KRrLpjYDdq\",\"ver\":1,\"path\":[],\"type\":2,\"msg\":{},\"ps\":0},\"fees_total\":\"\",\"fees_usable\":\"\",\"fees_publickey\":\"\",\"dmsg\":\"\",\"size\":0,\"is_valid\":1}"
+    ],
+    "bf": {
+        "start": 99.76057462090984,
+        "current": 0
+    },
+    "difficulty": 0.51,
+    "paysplit": 0.5,
+    "treasury": "5625000000.00000000",
+    "coinbase": "1875000000.00000000",
+    "reclaimed": "0.0",
+    "vote": 0
+}
