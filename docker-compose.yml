@@ -3,13 +3,17 @@ services:
     saito-1:
         image: new-saito
         volumes:
-            - ./tests/config/node-1.json:/newsaito/lib/options
+            - ./lib/saito:/newsaito/lib/saito
+            - ./tests/config/node_data/node-1.json:/newsaito/lib/options
         ports: 
-            - "8080:12101"
+            - "127.0.0.1:8080:12101"
+        command: ["npm", "start"]
 
     saito-2:
         image: new-saito
         volumes:
-            - ./tests/config/node-2.json:/newsaito/lib/options
+             - ./lib/saito:/newsaito/lib/saito
+             - ./tests/config/node_data/node-2.json:/newsaito/lib/options
         ports:
-            - "8081:12101"
+            - "127.0.0.1:8081:12101"
+        command: ["npm", "start"]

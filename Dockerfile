@@ -5,14 +5,12 @@ RUN apt-get install g++ make git
 
 COPY ./ /newsaito
 
-RUN git clone https://github.com/sparsehash/sparsehash
+WORKDIR /newsaito/extras/sparsehash/sparsehash
 
-WORKDIR /sparsehash
 
 RUN ./configure && make && make install
 
 WORKDIR /newsaito
-
 RUN npm install
 
 RUN cd ./lib && ./compile nuke
@@ -20,5 +18,4 @@ RUN cd ./lib && ./compile nuke
 CMD node ./lib/start.js
 # ENTRYPOINT /bin/sh
 
-EXPOSE 12101
 

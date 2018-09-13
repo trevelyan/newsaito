@@ -46,7 +46,10 @@ fi
   rm -f saito/web/browser.js.gz
   rm -f saito/web/browser.js-*
 
-
+  for node in ../tests/config/node_data/* ; do
+    cp ../tests/config/node.config.json $node
+  done
+      
 
 # generate browser.js
 sed 's/app.BROWSER    = 0;/app.BROWSER    = 1;/g' start.js > browser.js

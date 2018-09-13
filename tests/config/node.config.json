@@ -5,7 +5,7 @@
     },
     "peers": [
         {
-            "host": "",
+            "host": "somethingsilly",
             "port": ""
         }
     ]
