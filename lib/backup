@@ -1,0 +1,13 @@
+#!/bin/bash
+
+mkdir -p data/backups;
+
+for filename in data/*.sq3; do
+        fullname=$(basename -- "$filename")
+        echo "$fullname"
+
+        file="${fullname%.*}"
+        echo "$file"
+
+        sqlite3 "$filename" .dump > data/backups/"$file".bak
+done
