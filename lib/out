@@ -1,0 +1,858 @@
+
+
+
+
+
+
+
+
+diff --git a/lib/saito/block.js b/lib/saito/block.js
+
+-  //
+-  // validate non-rebroadcast transactions
+-  //
+-  for (let i = 0; i < this.transactions.length; i++) {
+-    if (this.transactions[i].type < 3) {
+-      if (!this.transactions[i].validate(this.app, this)) {
+-        console.log(`Block invalid: contains invalid transaction: ${i}`);
+-        this.app.logger.logError("Block invalid: contains invalid transaction: " + i, {message:"",err:""});
+-        return 0;
+-      }
+-    }
+-  }
+-
+-
+-  //
+-  // validate rebroadcast txs
+-  //
+-  let rebroadcast_validated = await this.validateRebroadcastTransactions();
+-  if (!rebroadcast_validated) {
+-    console.log("Cannot validate rebroadcast transactions!");
+-    return 0;
+-  }
+ 
+ 
+   //
+@@ -761,17 +739,41 @@ Block.prototype.validate = async function validate() {
+       transaction_input_hmap[this.transactions[i].transaction.from[j].returnIndex()] = 1;
+     }
+   }
++  
++  if ((this.id - this.app.blockchain.lowest_acceptable_bid) == 
++        this.app.blockchain.genesis_period) {
+ 
+-  //
+-  // validate reclaimed funds
+-  //
+-  let block_reclaimed = await this.calculateReclaimedFunds();
+-  if (block_reclaimed.reclaimed !== this.block.reclaimed) {
+-    console.log("Block invalid: reclaimed funds do not match - " + block_reclaimed.reclaimed + " vs " + this.block.reclaimed)
+-    return 0;
+-  }
++    //
++    // validate non-rebroadcast transactions
++    //
++    for (let i = 0; i < this.transactions.length; i++) {
++      if (this.transactions[i].type < 3) {
++        if (!this.transactions[i].validate(this.app, this)) {
++          console.log(`Block invalid: contains invalid transaction: ${i}`);
++          this.app.logger.logError("Block invalid: contains invalid transaction: " + i, {message:"",err:""});
++          return 0;
++        }
++      }
++    }
+ 
++    //
++    // validate reclaimed funds
++    //
++    let block_reclaimed = await this.calculateReclaimedFunds();
++    if (block_reclaimed.reclaimed !== this.block.reclaimed) {
++      console.log("Block invalid: reclaimed funds do not match - " + block_reclaimed.reclaimed + " vs " + this.block.reclaimed)
++      return 0;
++    }
+ 
++    //
++    // validate rebroadcast txs
++    //
++    let rebroadcast_validated = await this.validateRebroadcastTransactions();
++    if (!rebroadcast_validated) {
++      console.log("Cannot validate rebroadcast transactions!");
++      return 0;
++    }
++  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+diff --git a/lib/saito/blockchain.js b/lib/saito/blockchain.js
+   //
+   // if our first block
+   //
+-  if (this.lc == 0 && old_lc == 0) {
++  if (this.lc == 0 && this.blocks.length == 1) { //old_lc == 0) {
+ 
+     //
+     // if we have a starting point, we
+@@ -332,6 +332,7 @@ Blockchain.prototype.addBlockToBlockchain = async function addBlockToBlockchain(
+         i_am_the_longest_chain = 1;
+       }
+     } else {
++      this.index.lc[pos] = 1;
+       i_am_the_longest_chain = 1;
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+diff --git a/lib/saito/mempool.js b/lib/saito/mempool.js
+
++const request = require('request');
+ 
+ /**
+  * Mempool Constructor
+@@ -273,7 +274,8 @@ Mempool.prototype.bundleBlock = async function bundleBlock() {
+ 
+     if (
+       this.app.network.isPrivateNetwork() ||
+-      this.transactions.length > 0
++      //this.transactions.length > 0
++      this.transactions.filter(tx => tx.transaction.type != 1).length > 0
+     ) {
+
+ 
+       try {
+@@ -408,20 +410,39 @@ Mempool.prototype.processBlocks = async function processBlocks() {
+ 
+   this.processing_active = true;
+ 
+-  while (this.blocks.length !== 0) {
+-    //
+-    // implicit check of blk in queue
+-    //
+-    if (this.app.monitor.canBlockchainAddBlockToBlockchain()) {
+-      if (this.blocks.length > 0) {
+-        await this.app.blockchain.addBlockToBlockchain(this.blocks.shift());
++  // while (this.blocks.length !== 0) {
++  //   //
++  //   // implicit check of blk in queue
++  //   //
++  //   if (this.app.monitor.canBlockchainAddBlockToBlockchain()) {
++  //     if (this.blocks.length > 0) {
++  //       await this.app.blockchain.addBlockToBlockchain(this.blocks.shift());
++  //     }
++  //   }
++  // }
++
++  if (this.processing_timer == null) {
++    this.processing_timer = setInterval(async () => {
++      if (this.app.monitor.canBlockchainAddBlockToBlockchain()) {
++        if (this.blocks.length > 0) {
++          await this.app.blockchain.addBlockToBlockchain(this.blocks.shift());
++        }
+       }
+-    }
++
++      // if we have emptied our queue
++      if (this.blocks.length == 0) {
++        clearInterval(this.processing_timer);
++        this.processing_timer = null;
++      }
++
++        this.processing_active = false;
++
++    }, this.processing_speed);
+   }
+ 
+   this.processing_active = false;
++  
+   return;
+-
+ }
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+diff --git a/lib/saito/network.js b/lib/saito/network.js
+@@ -191,6 +191,14 @@ Network.prototype.isPrivateNetwork = function isPrivateNetwork() {
+   // we will not produce blocks without transactions on a public
+   // network.
+ 
++  console.log("PEERS CONNECTED", this.peers_connected);
++
++  for (let i = 0; i < this.peers.length; i++) {
++    if (this.peers[i].isConnected()) { return false; }
++  }
++
++  if (this.app.options.peers != null) { return false; }
++
+   return true;
+ 
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+diff --git a/lib/saito/peer.js b/lib/saito/peer.js
+@@ -411,21 +411,22 @@ Peer.prototype.addSocketEvents = function addSocketEvents() {
+         // figure out our last common block
+         //
+         let last_shared_bid = this.app.blockchain.returnLastSharedBlockId(peer_forkid, peer_last_bid);
++        console.log("LAST_SHARED_BID: ", last_shared_bid);
+ 
+         //
+-	// send blockchain info
+-	//
+-	if (this.app.blockchain.returnLatestBlockId() > last_shared_bid) {
+-	  this.sendBlockchain(last_shared_bid);
+-	}
+-
+-	//
+-	// we already received a signature confirming
+-	// their publickey, but had not received their
+-	// initial handshake. So now that we have 
+-	// the handshake, lets validate them.
+-	//
+-	if (this.handshake_signature != "") {
++        // send blockchain info
++        //
++        if (this.app.blockchain.returnLatestBlockId() > last_shared_bid) {
++          this.sendBlockchain(last_shared_bid);
++        }
++
++        //
++        // we already received a signature confirming
++        // their publickey, but had not received their
++        // initial handshake. So now that we have 
++        // the handshake, lets validate them.
++        //
++        if (this.handshake_signature != "") {
+           if (this.app.crypto.verifyMessage("_"+this.challenge_local, this.handshake_signature, this.peer.publickey) == 0) {
+ console.log("handshake signature failed verification...");
+             var sigmessage      = {};
+@@ -437,12 +438,12 @@ console.log("handshake signature failed verification...");
+ console.log("handshake signature getting verified...");
+             this.verified = 1;
+           }
+-	}
++        }
+ 
+-	//
+-	// complete handshake
+-	//
+-	this.handshake_completed = 1;
++        //
++        // complete handshake
++        //
++        this.handshake_completed = 1;
+ 
+       }
+ 
+@@ -453,31 +454,31 @@ console.log("handshake signature getting verified...");
+       /////////////////
+       if (message.request == "connect-sig") {
+         if (message.data == undefined) { return; }
+-	
+-	//
+-	// we have the sig-reply but no handshake
+-	// which means a connection issue with
+-	// websockets firing randomly
+-	//
+-	// at this point we should be connected
+-	// so we send another handshake request
+-	// and save this signature so we can 
+-	// process it on receipt of the handshake
+-	//
++        
++        //
++        // we have the sig-reply but no handshake
++        // which means a connection issue with
++        // websockets firing randomly
++        //
++        // at this point we should be connected
++        // so we send another handshake request
++        // and save this signature so we can 
++        // process it on receipt of the handshake
++        //
+         let sig = message.data.sig;
+-	if (this.handshake_completed == 0) { 
++        if (this.handshake_completed == 0) { 
+ 
+-	  this.handshake_signature = sig;
+-	  //
+-	  // request handshake
+-	  //
++          this.handshake_signature = sig;
++          //
++          // request handshake
++          //
+           var sigmessage      = {};
+           sigmessage.request  = "handshake request";
+           sigmessage.data     = {};
+           this.socket.emit('request', JSON.stringify(sigmessage));
+-	  return;
++          return;
+ 
+-	}
++        }
+         if (sig != "") {
+           if (this.app.crypto.verifyMessage("_"+this.challenge_local, sig, this.peer.publickey) == 0) {
+           } else {
+@@ -491,11 +492,11 @@ console.log("handshake signature getting verified...");
+       // handshake request //
+       ///////////////////////
+       if (message.request == "handshake request") {
+-	this.handshake_requests_out++;
+-	if (this.handshake_requests > 5) {
++        this.handshake_requests_out++;
++        if (this.handshake_requests > 5) {
+           this.socket = null;
+-	  this.app.network.cleanupDisconnectedSocket(this);
+-	}
++          this.app.network.cleanupDisconnectedSocket(this);
++        }
+         this.sendHandshake();
+         return;
+       }
+@@ -546,14 +547,14 @@ console.log("IS HASHED? " + this.app.blockchain.isHashIndexed(message.data.bhash
+ 
+ console.log("receiving blockchain message: " + message.data);
+ 
+-	let blocks = message.data;
+-	let prevhash = blocks.start;
++        let blocks = message.data;
++        let prevhash = blocks.start;
+ 
+ console.log(JSON.stringify(blocks));
+ 
+         for (let i = 0; i < blocks.prehash.length; i++) {
+-	  let bid  = blocks.bid[i];
+-	  let hash = this.app.crypto.hash(blocks.prehash[i] + prevhash);
++          let bid  = blocks.bid[i];
++          let hash = this.app.crypto.hash(blocks.prehash[i] + prevhash);
+           prevhash = hash;
+ console.log("CALCULATED BID " + bid + " is " + hash);
+           if (this.app.blockchain.isHashIndexed(hash) != 1) { this.app.mempool.fetchBlock(this, hash); }
+@@ -571,7 +572,7 @@ console.log("CALCULATED BID " + bid + " is " + hash);
+         if (!tx.is_valid) { return; }
+         this.app.mempool.addTransaction(tx);
+         if (mycallback != null) { 
+-	  mycallback();
++          mycallback();
+         }
+         return;
+       }
+@@ -614,10 +615,10 @@ Peer.prototype.sendBlockchain = function sendBlockchain(start_bid) {
+     if (start_bid < 0) { start_bid = 0; }
+   }
+ 
+-  let message      = {};
++  let message               = {};
+       message.request       = "blockchain";
+       message.data          = {};
+-      message.data.start    = "";
++      message.data.start    = null;
+       message.data.prehash  = [];
+       message.data.bid	    = [];
+ 
+@@ -634,7 +635,7 @@ Peer.prototype.sendBlockchain = function sendBlockchain(start_bid) {
+ 
+   for (let i = start_bid; i < this.app.blockchain.index.hash.length; i++) {
+     if (this.app.blockchain.index.lc[i] == 1) {
+-      if (message.data.start == "") {
++      if (message.data.start == null) {
+         message.data.start = this.app.blockchain.blocks[i].block.prevhash;
+       }
+       message.data.prehash.push(this.app.blockchain.blocks[i].prehash);
+diff --git a/lib/saito/storage.js b/lib/saito/storage.js
+index fd175c4..ffd0686 100644
+--- a/lib/saito/storage.js
++++ b/lib/saito/storage.js
+@@ -579,7 +579,7 @@ Storage.prototype.validateTransactionInput = function validateTransactionInput(s
+ 
+       if (slip.bid < this.app.blockchain.lowest_acceptable_bid) {
+ 
+-	//
++        //
+         // we cannot be sure that we should be rejecting this block
+         // unless we have a full genesis period, as only with a full
+         // genesis period of blocks can we be sure that the inputs
+@@ -589,14 +589,14 @@ Storage.prototype.validateTransactionInput = function validateTransactionInput(s
+         // that the fork_id for the chain is correct once it has
+         // been downloaded. this is the same vulnerability as getting
+         // a chain-poisoned tip in bitcoin
+-	// 
+-
+-	//
+-	// but ensure slip also valid in genesis period
+-	//
+-	if (slip.bid < (bid - this.app.blockchain.genesis_period)) {
+-	  return false;
+-	}
++        // 
++
++        //
++        // but ensure slip also valid in genesis period
++        //
++        if (slip.bid < (bid - this.app.blockchain.genesis_period)) {
++          return false;
++        }
+ 
+       } else {
+         return false;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@@ -12713,28 +12713,6 @@ Block.prototype.validate = async function validate() {
+     return 0;
+ 
+   }
+-  //
+-  // validate non-rebroadcast transactions
+-  //
+-  for (let i = 0; i < this.transactions.length; i++) {
+-    if (this.transactions[i].type < 3) {
+-      if (!this.transactions[i].validate(this.app, this)) {
+-        console.log(`Block invalid: contains invalid transaction: ${i}`);
+-        this.app.logger.logError("Block invalid: contains invalid transaction: " + i, {message:"",err:""});
+-        return 0;
+-      }
+-    }
+-  }
+-
+-
+-  //
+-  // validate rebroadcast txs
+-  //
+-  let rebroadcast_validated = await this.validateRebroadcastTransactions();
+-  if (!rebroadcast_validated) {
+-    console.log("Cannot validate rebroadcast transactions!");
+-    return 0;
+-  }
+ 
+ 
+   //
+@@ -12751,17 +12729,41 @@ Block.prototype.validate = async function validate() {
+       transaction_input_hmap[this.transactions[i].transaction.from[j].returnIndex()] = 1;
+     }
+   }
++  
++  if ((this.id - this.app.blockchain.lowest_acceptable_bid) == 
++        this.app.blockchain.genesis_period) {
+ 
+-  //
+-  // validate reclaimed funds
+-  //
+-  let block_reclaimed = await this.calculateReclaimedFunds();
+-  if (block_reclaimed.reclaimed !== this.block.reclaimed) {
+-    console.log("Block invalid: reclaimed funds do not match - " + block_reclaimed.reclaimed + " vs " + this.block.reclaimed)
+-    return 0;
+-  }
++    //
++    // validate non-rebroadcast transactions
++    //
++    for (let i = 0; i < this.transactions.length; i++) {
++      if (this.transactions[i].type < 3) {
++        if (!this.transactions[i].validate(this.app, this)) {
++          console.log(`Block invalid: contains invalid transaction: ${i}`);
++          this.app.logger.logError("Block invalid: contains invalid transaction: " + i, {message:"",err:""});
++          return 0;
++        }
++      }
++    }
+ 
++    //
++    // validate reclaimed funds
++    //
++    let block_reclaimed = await this.calculateReclaimedFunds();
++    if (block_reclaimed.reclaimed !== this.block.reclaimed) {
++      console.log("Block invalid: reclaimed funds do not match - " + block_reclaimed.reclaimed + " vs " + this.block.reclaimed)
++      return 0;
++    }
+ 
++    //
++    // validate rebroadcast txs
++    //
++    let rebroadcast_validated = await this.validateRebroadcastTransactions();
++    if (!rebroadcast_validated) {
++      console.log("Cannot validate rebroadcast transactions!");
++      return 0;
++    }
++  }
+ 
+   //
+   // validate merkle root
+@@ -13366,7 +13368,7 @@ Blockchain.prototype.addBlockToBlockchain = async function addBlockToBlockchain(
+   //
+   // if our first block
+   //
+-  if (this.lc == 0 && old_lc == 0) {
++  if (this.lc == 0 && this.blocks.length == 1) { //old_lc == 0) {
+ 
+     //
+     // if we have a starting point, we
+@@ -13382,6 +13384,7 @@ Blockchain.prototype.addBlockToBlockchain = async function addBlockToBlockchain(
+         i_am_the_longest_chain = 1;
+       }
+     } else {
++      this.index.lc[pos] = 1;
+       i_am_the_longest_chain = 1;
+     }
+ 
+@@ -16590,6 +16593,7 @@ Logger.prototype.logError = function logError(message, err) {
+ const Big = require('big.js')
+ const saito = require('../saito');
+ const path = require('path');
++const request = require('request');
+ 
+ /**
+  * Mempool Constructor
+@@ -16861,7 +16865,8 @@ Mempool.prototype.bundleBlock = async function bundleBlock() {
+ 
+     if (
+       this.app.network.isPrivateNetwork() ||
+-      this.transactions.length > 0
++      //this.transactions.length > 0
++      this.transactions.filter(tx => tx.transaction.type != 1).length > 0
+     ) {
+ 
+       try {
+@@ -16996,20 +17001,39 @@ Mempool.prototype.processBlocks = async function processBlocks() {
+ 
+   this.processing_active = true;
+ 
+-  while (this.blocks.length !== 0) {
+-    //
+-    // implicit check of blk in queue
+-    //
+-    if (this.app.monitor.canBlockchainAddBlockToBlockchain()) {
+-      if (this.blocks.length > 0) {
+-        await this.app.blockchain.addBlockToBlockchain(this.blocks.shift());
++  // while (this.blocks.length !== 0) {
++  //   //
++  //   // implicit check of blk in queue
++  //   //
++  //   if (this.app.monitor.canBlockchainAddBlockToBlockchain()) {
++  //     if (this.blocks.length > 0) {
++  //       await this.app.blockchain.addBlockToBlockchain(this.blocks.shift());
++  //     }
++  //   }
++  // }
++
++  if (this.processing_timer == null) {
++    this.processing_timer = setInterval(async () => {
++      if (this.app.monitor.canBlockchainAddBlockToBlockchain()) {
++        if (this.blocks.length > 0) {
++          await this.app.blockchain.addBlockToBlockchain(this.blocks.shift());
++        }
+       }
+-    }
++
++      // if we have emptied our queue
++      if (this.blocks.length == 0) {
++        clearInterval(this.processing_timer);
++        this.processing_timer = null;
++      }
++
++        this.processing_active = false;
++
++    }, this.processing_speed);
+   }
+ 
+   this.processing_active = false;
++  
+   return;
+-
+ }
+ 
+ 
+@@ -17349,7 +17373,7 @@ Mempool.prototype.stop = function stop() {
+ 
+ 
+ }).call(this,"/saito")
+-},{"../saito":23,"big.js":91,"path":349}],36:[function(require,module,exports){
++},{"../saito":23,"big.js":91,"path":349,"request":129}],36:[function(require,module,exports){
+ 'use strict';
+ const saito = require('../saito');
+ const Big = require('big.js');
+@@ -17777,6 +17801,14 @@ Network.prototype.isPrivateNetwork = function isPrivateNetwork() {
+   // we will not produce blocks without transactions on a public
+   // network.
+ 
++  console.log("PEERS CONNECTED", this.peers_connected);
++
++  for (let i = 0; i < this.peers.length; i++) {
++    if (this.peers[i].isConnected()) { return false; }
++  }
++
++  if (this.app.options.peers != null) { return false; }
++
+   return true;
+ 
+ }
+@@ -18457,21 +18489,22 @@ Peer.prototype.addSocketEvents = function addSocketEvents() {
+         // figure out our last common block
+         //
+         let last_shared_bid = this.app.blockchain.returnLastSharedBlockId(peer_forkid, peer_last_bid);
++        console.log("LAST_SHARED_BID: ", last_shared_bid);
+ 
+         //
+-	// send blockchain info
+-	//
+-	if (this.app.blockchain.returnLatestBlockId() > last_shared_bid) {
+-	  this.sendBlockchain(last_shared_bid);
+-	}
++        // send blockchain info
++        //
++        if (this.app.blockchain.returnLatestBlockId() > last_shared_bid) {
++          this.sendBlockchain(last_shared_bid);
++        }
+ 
+-	//
+-	// we already received a signature confirming
+-	// their publickey, but had not received their
+-	// initial handshake. So now that we have 
+-	// the handshake, lets validate them.
+-	//
+-	if (this.handshake_signature != "") {
++        //
++        // we already received a signature confirming
++        // their publickey, but had not received their
++        // initial handshake. So now that we have 
++        // the handshake, lets validate them.
++        //
++        if (this.handshake_signature != "") {
+           if (this.app.crypto.verifyMessage("_"+this.challenge_local, this.handshake_signature, this.peer.publickey) == 0) {
+ console.log("handshake signature failed verification...");
+             var sigmessage      = {};
+@@ -18483,12 +18516,12 @@ console.log("handshake signature failed verification...");
+ console.log("handshake signature getting verified...");
+             this.verified = 1;
+           }
+-	}
++        }
+ 
+-	//
+-	// complete handshake
+-	//
+-	this.handshake_completed = 1;
++        //
++        // complete handshake
++        //
++        this.handshake_completed = 1;
+ 
+       }
+ 
+@@ -18499,31 +18532,31 @@ console.log("handshake signature getting verified...");
+       /////////////////
+       if (message.request == "connect-sig") {
+         if (message.data == undefined) { return; }
+-	
+-	//
+-	// we have the sig-reply but no handshake
+-	// which means a connection issue with
+-	// websockets firing randomly
+-	//
+-	// at this point we should be connected
+-	// so we send another handshake request
+-	// and save this signature so we can 
+-	// process it on receipt of the handshake
+-	//
++        
++        //
++        // we have the sig-reply but no handshake
++        // which means a connection issue with
++        // websockets firing randomly
++        //
++        // at this point we should be connected
++        // so we send another handshake request
++        // and save this signature so we can 
++        // process it on receipt of the handshake
++        //
+         let sig = message.data.sig;
+-	if (this.handshake_completed == 0) { 
++        if (this.handshake_completed == 0) { 
+ 
+-	  this.handshake_signature = sig;
+-	  //
+-	  // request handshake
+-	  //
++          this.handshake_signature = sig;
++          //
++          // request handshake
++          //
+           var sigmessage      = {};
+           sigmessage.request  = "handshake request";
+           sigmessage.data     = {};
+           this.socket.emit('request', JSON.stringify(sigmessage));
+-	  return;
++          return;
+ 
+-	}
++        }
+         if (sig != "") {
+           if (this.app.crypto.verifyMessage("_"+this.challenge_local, sig, this.peer.publickey) == 0) {
+           } else {
+@@ -18537,11 +18570,11 @@ console.log("handshake signature getting verified...");
+       // handshake request //
+       ///////////////////////
+       if (message.request == "handshake request") {
+-	this.handshake_requests_out++;
+-	if (this.handshake_requests > 5) {
++        this.handshake_requests_out++;
++        if (this.handshake_requests > 5) {
+           this.socket = null;
+-	  this.app.network.cleanupDisconnectedSocket(this);
+-	}
++          this.app.network.cleanupDisconnectedSocket(this);
++        }
+         this.sendHandshake();
+         return;
+       }
+@@ -18592,14 +18625,14 @@ console.log("IS HASHED? " + this.app.blockchain.isHashIndexed(message.data.bhash
+ 
+ console.log("receiving blockchain message: " + message.data);
+ 
+-	let blocks = message.data;
+-	let prevhash = blocks.start;
++        let blocks = message.data;
++        let prevhash = blocks.start;
+ 
+ console.log(JSON.stringify(blocks));
+ 
+         for (let i = 0; i < blocks.prehash.length; i++) {
+-	  let bid  = blocks.bid[i];
+-	  let hash = this.app.crypto.hash(blocks.prehash[i] + prevhash);
++          let bid  = blocks.bid[i];
++          let hash = this.app.crypto.hash(blocks.prehash[i] + prevhash);
+           prevhash = hash;
+ console.log("CALCULATED BID " + bid + " is " + hash);
+           if (this.app.blockchain.isHashIndexed(hash) != 1) { this.app.mempool.fetchBlock(this, hash); }
+@@ -18617,7 +18650,7 @@ console.log("CALCULATED BID " + bid + " is " + hash);
+         if (!tx.is_valid) { return; }
+         this.app.mempool.addTransaction(tx);
+         if (mycallback != null) { 
+-	  mycallback();
++          mycallback();
+         }
+         return;
+       }
+@@ -18660,10 +18693,10 @@ Peer.prototype.sendBlockchain = function sendBlockchain(start_bid) {
+     if (start_bid < 0) { start_bid = 0; }
+   }
+ 
+-  let message      = {};
++  let message               = {};
+       message.request       = "blockchain";
+       message.data          = {};
+-      message.data.start    = "";
++      message.data.start    = null;
+       message.data.prehash  = [];
+       message.data.bid	    = [];
+ 
+@@ -18680,7 +18713,7 @@ Peer.prototype.sendBlockchain = function sendBlockchain(start_bid) {
+ 
+   for (let i = start_bid; i < this.app.blockchain.index.hash.length; i++) {
+     if (this.app.blockchain.index.lc[i] == 1) {
+-      if (message.data.start == "") {
++      if (message.data.start == null) {
+         message.data.start = this.app.blockchain.blocks[i].block.prevhash;
+       }
+       message.data.prehash.push(this.app.blockchain.blocks[i].prehash);
+@@ -19807,7 +19840,7 @@ Storage.prototype.validateTransactionInput = function validateTransactionInput(s
+ 
+       if (slip.bid < this.app.blockchain.lowest_acceptable_bid) {
+ 
+-	//
++        //
+         // we cannot be sure that we should be rejecting this block
+         // unless we have a full genesis period, as only with a full
+         // genesis period of blocks can we be sure that the inputs
+@@ -19817,14 +19850,14 @@ Storage.prototype.validateTransactionInput = function validateTransactionInput(s
+         // that the fork_id for the chain is correct once it has
+         // been downloaded. this is the same vulnerability as getting
+         // a chain-poisoned tip in bitcoin
+-	// 
++        // 
+ 
+-	//
+-	// but ensure slip also valid in genesis period
+-	//
+-	if (slip.bid < (bid - this.app.blockchain.genesis_period)) {
+-	  return false;
+-	}
++        //
++        // but ensure slip also valid in genesis period
++        //
++        if (slip.bid < (bid - this.app.blockchain.genesis_period)) {
++          return false;
++        }
+ 
+       } else {
+         return false;
+
+
+
+
+
+
+
+
+
+
