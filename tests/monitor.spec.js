@@ -13,7 +13,6 @@ describe('MONITOR', () => {
   describe('Constructor', () => {
     it('should have all necessary fields for a Block object', () => {
       assert(monitor.app !== undefined);
-      assert.equal(monitor.bundling_active, false);
     });
   });
 
