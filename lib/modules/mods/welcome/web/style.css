@@ -5,6 +5,12 @@
  margin:0px;
 }
 
+.register_address {
+  color: -webkit-link;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .index-container {
   display: grid;
   grid-template-columns: 1fr;

@@ -1,32 +1,80 @@
 <html>
 <head>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Saito Network: Online Demo</title>
+
+  <title>Saito Network: Register an Email Address</title>
+
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="/lib/jquery/jquery-ui.min.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/lib/jquery/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox-buttons.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-buttons.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-media.js"></script>
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox-thumbs.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-thumbs.js"></script>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css" />
+
   <link rel="stylesheet" type="text/css" href="/registry/style.css" />
   <link rel="icon" media="all" type="image/x-icon" href="/favicon.ico?v=2"/>
+
 </head>
 <body>
+
+    <div id="Registry_browser_active"></div>
 
     <div class="header">
       <img src="/img/saito_logo_black.png" style="width:35px;margin-top:5px;margin-left:25px;margin-right:10px;float:left;" />
       <div style="font-family:Georgia;padding-top:0px;font-size:1.2em;color:#444;">saito</div>
     </div>
 
-    <div class="main" style="display:none">
-      Saito powers decentralized key-value registries.
+
+    <div class="loader">
+      Saito is currently loading....
       <p></p>
-      Among other things, we use this to run an email address system.
-      <p></p>
-      Our default address is:
-      <p></p>
-      name @ saito
-      <p></p>
-      To register an address, use the "registry" module in your email client.
+      We are downloading the application itself into your browser from our server in Los Angeles. The download is reasonably fast in the United States, but can take up to a minute in China due to its size (~1.6 MB). Please be patient.
     </div>
+
+
+
+    <div class="main" style="display:none">
+
+      <h1>Register an Email Address:</h1>
+
+      <p></p>
+
+        <input type="text" id="requested_identifier" style="padding:4px;font-size:1.2em;height:1.4em;max-width:175px;min-width:125px" /><span style="font-size:1.2em;font-weight:bold;">@saito</span>
+	<p><p/>
+        <input type="button" value="Submit" id="submit" class="submit" />
+
+      <p></p>
+
+      N.B.: you don't technically <b>need</b> to register an email address to use Saito, but it makes it easier....
+
+    </div>
+
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+
+    $.ajaxSetup({ cache: true });
+    $.getScript( "/browser.js", function( data, textStatus, jqxhr ) {
+      $('.loader').hide();
+      $('.main').show();
+    });
+
+  </script>
+
+
 
 </body>
 </html>
