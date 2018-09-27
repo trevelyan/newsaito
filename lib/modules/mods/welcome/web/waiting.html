@@ -1,0 +1,111 @@
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Saito: Welcome</title>
+
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="welcome/style.css" />
+  <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="/lib/jquery/jquery-ui.min.css" type="text/css" media="screen" />
+  <script type="text/javascript" src="/lib/jquery/jquery-ui.min.js"></script>
+
+  <link rel="icon" media="all" type="image/x-icon" href="/favicon.ico?v=2"/>
+
+</head>
+<body>
+
+  <div class="header">
+    <a href="/" class="logo_link">
+      <img src="/img/saito_logo_black.png" class="logo" />
+      <div class="network_status">
+        NETWORK STATS: [ latest block: <span id="saito_latest_block">410323</span> ] &nbsp; [ blocktime: <span id="saito_blocktime">30 seconds</span> ] &nbsp; [ difficulty: <span id="saito_difficulty">0.5142</span> ] &nbsp; [ paysplit: <span id="saito_paysplit">0.7534</span> ]
+      </div>
+    </a>
+  </div>
+
+  <div id="Welcome_browser_active"></div>
+
+  <div class="loader">Loading Saito Control Panel...</div>
+
+  <div class="main" style="display:none;">
+
+    <div style="float:left">
+
+      <div class="padding:5px;border:2px solid #ff8844;">Your account should receive tokens from the network within a few minutes. Normally you will receive them within about 30 seconds, although sometimes it can take a bit longer depending on network conditions. Once received, your balance on this page will update.</div>
+
+      <div class="section_header">ACCOUNT</div>
+
+      <div style="float:left;margin-bottom:10px;">
+        <table>
+          <tr>
+            <td class="h">EMAIL</td>
+            <td class="c" id="saito_email">david@saito</td>
+          </tr>
+          <tr>
+            <td class="h">ADDRESS</td>
+            <td class="c" id="saito_address">jUFMAUTu1o7uu3Ywgg1d23QDLLexnjUcsT5QDxSSfG7X</td>
+          </tr>
+          <tr>
+            <td class="h">BALANCE</td>
+            <td class="c" id="saito_balance">1003.0 SAITO</td>
+          </tr>
+          <tr>
+            <td class="h">DFT FEE</td>
+            <td class="c" id="saito_fee">2.0 SAITO</td>
+          </tr>
+        </table>
+      </div>
+
+
+      <div style="margin-top:15px;clear:left;float:left;max-width:650px;">
+        <div class="orange_button" id="backup_wallet">backup</div>
+        <div class="orange_button" id="restore_wallet">restore</div>
+        <div class="orange_button" id="reset">reset</div>
+        <div class="orange_button" id="disable_ads">disable ads</div>
+      </div>
+
+
+      <div style="clear:left;max-width:650px;padding-bottom:40px;">
+        <div style="padding-top:20px;" class="section_header">RUN APPLICATION:</div>
+
+	<ul>
+	  <li><a href="/r">Saito Email</a></li>
+	  <li><a href="/facebook">Saito Facebook</a></li>
+	  <li><a href="/r/">Saito Reddit</a></li>
+	  <li><a href="/appstore">Saito AppStore</a></li>
+	  <li><a href="/remix">Module Builder</a></li>
+	  <li><a href="/adsense">Saito Ad Network</a></li>
+	  <li><a href="/faucet">Token Faucet</a></li>
+	  <li><a href="/explorer">Blockchain Explorer</a></li>
+	</ul>
+
+        <div style="clear:both">
+          Or <a href="/appstore">click here</a> for more applications....
+        </div>
+
+        <input id="file-input" class="file-input" type="file" name="name" style="display:none;" />
+
+      </div>
+    </div>
+
+    <div style="float:right;max-width:300px;">
+      <div class="advert-300-250" id="advert-300-250"></div>
+    </div>
+
+  </div>
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/browser.js"></script>
+
+</body>
+</html>
+
