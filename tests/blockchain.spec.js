@@ -14,7 +14,7 @@ describe('BLOCKCHAIN', () => {
 
   describe('Return Latest Block', () => {
     it('should return the latest Block from the Blockchain object', () => {
-      assert.equal(bchain.returnPreviousBlock(), null);
+      assert.equal(bchain.returnLatestBlock(), null);
     });
   });
 

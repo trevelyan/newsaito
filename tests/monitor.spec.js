@@ -6,14 +6,12 @@ describe('MONITOR', () => {
 
   var app = {};
       app.mempool = {};
-      app.mempool.bundle_active = false;
 
   const monitor = new Monitor(app);
 
   describe('Constructor', () => {
     it('should have all necessary fields for a Block object', () => {
       assert(monitor.app !== undefined);
-      assert.equal(monitor.bundling_active, false);
     });
   });
 
