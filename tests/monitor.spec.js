@@ -6,7 +6,6 @@ describe('MONITOR', () => {
 
   var app = {};
       app.mempool = {};
-      app.mempool.bundle_active = false;
 
   const monitor = new Monitor(app);
 

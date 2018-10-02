@@ -13,4 +13,5 @@ describe('MINER', () => {
       assert.equal(miner.minging_timer, null);
     });
   });
+
 });
