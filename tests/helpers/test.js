@@ -8,8 +8,15 @@ module.exports = {
   // Creates a new instance of Saito to use for testing
   async initSaito(config) {
 
-    if (config !== null) {
+    if (config !== undefined) {
       await config.setup();
+    } else {
+      config = {
+        type: "lite",
+        storage: {
+          dest: null
+        }
+      }
     }
 
     var dir = path.join(__dirname, '../data');

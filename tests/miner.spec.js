@@ -9,8 +9,9 @@ describe('MINER', () => {
     it('should have all necessary fields for a Storage object', () => {
       assert(miner.app !== undefined);
       assert.equal(miner.mining_active, false);
-      assert.equal(miner.mining_speed, 1000);
+      assert.equal(miner.mining_speed, 2000);
       assert.equal(miner.minging_timer, null);
     });
   });
+
 });

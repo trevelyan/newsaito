@@ -1,13 +1,16 @@
 <html>
 <head>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Saito Network: Online Demo</title>
+  <title>Saito: Welcome</title>
 
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="style.css" />
   <script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
   <link rel="stylesheet" href="/lib/jquery/jquery-ui.min.css" type="text/css" media="screen" />
@@ -18,40 +21,278 @@
 </head>
 <body>
 
-    <div class="header">
-      <a href="/" class="logo_link">
-        <img src="/img/saito_logo_black.png" class="logo" />
-        <div class="logo_text">saito</div>
+
+  <div class="header">
+    <a href="/" class="logo_link">
+      <img src="/img/saito_logo_black.png" class="logo" />
+      <div class="network_status">NETWORK STATS: [ latest block: 410323 ] &nbsp; [ blocktime: 30 seconds ] &nbsp; [ difficulty: 0.5142 ] &nbsp; [ paysplit: 0.7534 ]</div>
+    </a>
+  </div>
+
+
+  <div class="loader">
+    Loading Saito Control Panel...
+  </div>
+
+  <div class="main" style="display:none;">
+
+    <div style="float:left">
+
+    <div class="section_header">ACCOUNT</div>
+
+    <div style="float:left;margin-bottom:10px;">
+      <table>
+        <tr>
+          <td class="h">EMAIL</td>
+          <td class="c">david@saito</td>
+        </tr>
+        <tr>
+          <td class="h">ADDRESS</td>
+          <td class="c">jUFMAUTu1o7uu3Ywgg1d23QDLLexnjUcsT5QDxSSfG7X</td>
+        </tr>
+        <tr>
+          <td class="h">BALANCE</td>
+          <td class="c">1003.0 SAITO</td>
+        </tr>
+        <tr>
+          <td class="h">SET FEE</td>
+          <td class="c">2.0 SAITO</td>
+        </tr>
+      </table>
+    </div>
+
+
+    <div style="margin-top:15px;clear:left;float:left;max-width:650px;">
+      <a class="orange_button">backup</a>
+      <a class="orange_button">restore</a>
+    </div>
+
+
+    <div style="clear:left;max-width:650px">
+
+      <div style="padding-top:20px" class="section_header">APPLICATIONS</div>
+
+      <a href="/email">
+        <div class="application">
+          <img class="tb" src="http://saito.tech/img/email.png" alt="" />
+          <img class="tt" src="http://saito.tech/img/titles/1.jpg" alt="" />
+          <div class="demo_title">SAITO EMAIL</div>
+        </div>
       </a>
+
+      <a href="/email">
+        <div class="application">
+          <img class="tb" src="http://saito.tech/img/dreddit.png" alt="" />
+          <img class="tt" src="http://saito.tech/img/titles/2.jpg" alt="" />
+          <div class="demo_title">SAITO REDDIT</div>
+        </div>
+      </a>
+
+      <a href="/email">
+        <div class="application">
+          <img class="tb" src="http://saito.tech/img/facebook.png" alt="" />
+          <img class="tt" src="http://saito.tech/img/titles/3.jpg" alt="" />
+          <div class="demo_title">SAITO FACEBOOK</div>
+        </div>
+      </a>
+
+      <a href="/email">
+        <div class="application">
+          <img class="tb" src="http://saito.tech/img/email.png" alt="" />
+          <img class="tt" src="http://saito.tech/img/titles/1.jpg" alt="" />
+          <div class="demo_title">SAITO EMAIL</div>
+        </div>
+      </a>
+
+      <a href="/email">
+        <div class="application">
+          <img class="tb" src="http://saito.tech/img/dreddit.png" alt="" />
+          <img class="tt" src="http://saito.tech/img/titles/2.jpg" alt="" />
+          <div class="demo_title">SAITO REDDIT</div>
+        </div>
+      </a>
+
+      <a href="/email">
+        <div class="application">
+          <img class="tb" src="http://saito.tech/img/facebook.png" alt="" />
+          <img class="tt" src="http://saito.tech/img/titles/3.jpg" alt="" />
+          <div class="demo_title">SAITO FACEBOOK</div>
+        </div>
+      </a>
+
+      <a href="/email">
+        <div class="application">
+          <img class="tb" src="http://saito.tech/img/email.png" alt="" />
+          <img class="tt" src="http://saito.tech/img/titles/1.jpg" alt="" />
+          <div class="demo_title">SAITO EMAIL</div>
+        </div>
+      </a>
+
+      <a href="/email">
+        <div class="application">
+          <img class="tb" src="http://saito.tech/img/dreddit.png" alt="" />
+          <img class="tt" src="http://saito.tech/img/titles/2.jpg" alt="" />
+          <div class="demo_title">SAITO REDDIT</div>
+        </div>
+      </a>
+
+      <a href="/email">
+        <div class="application">
+          <img class="tb" src="http://saito.tech/img/facebook.png" alt="" />
+          <img class="tt" src="http://saito.tech/img/titles/3.jpg" alt="" />
+          <div class="demo_title">SAITO FACEBOOK</div>
+        </div>
+      </a>
+
+      <div style="clear:both">
+        Or click here for more applications....
+      </div>
+
     </div>
 
-    <div class="main">
-
-<p>
-
-Try some blockchain applications running on the Saito Network:
-
-<ul>
-  <li id="email"><a href="email/">Saito Email</a></li>
-  <li id="chat"><a href="chat/">Saito Chat</a></li>
-  <li id="facebook"><a href="facebook/">Saito Facebook</a></li>
-  <li id="reddit"><a href="r/">Saito Reddit</a></li>
-  <li id="adsense"><a href="appstore/">Saito AppStore</a></li>
-  <li id="remix"><a href="remix/">Saito Module Builder</a></li>
-  <li id="adsense"><a href="advert/">Saito Adsense</a></li>
-  <li id="sserver"><a href="secret/">Secret Server</a></li>
-  <li id="bank"><a href="bank/">Bank of Saito</a></li>
-  <li id="auth"><a href="auth/">Authorization</a></li>
-  <li id="faucet"><a href="faucet/">Token Faucet</a> </li>
-  <li id="explorer"><a href="explorer/">Blockchain Explorer</a> </li>
-</ul>
-
-</p>
-
-<p id="reading">
-  Newcomers should read our <a href="/docs/intro.html">general introduction</a> on what Saito is. More advanced users can read our technical explanation of how <a href="/docs/transactions.html">proof-of-transactions</a> enables us to support a terabyte-level blockchain.
-</p>
     </div>
+    <div style="float:right;max-width:300px;">
+      <div class="advert-300-250" id="advert-300-250"></div>
+      <div style="padding: 4px;font:#444;">Our advertising faucet will send you free tokens. But you can disable it too.
+      </div>
+    </div>
+
+  </div>
+
+<style type="text/css">
+
+.section_header {
+  font-family:'Montserrat',sans-serif;
+  font-size:2.0em;
+  margin-bottom:10px;
+  color:#ff8844;
+  clear:left;
+}
+
+.banner {
+  text-align: center;
+  background: url(http://saito.tech/img/header/jason-patrick-schuller-163973-unsplash.jpg) center repeat;
+  padding-top: 30px;
+  padding-bottom: 25px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.network_status {
+  text-align:center;
+  width:100%;
+  font-weight:bold;
+  font-size:0.7em;
+  color:#444;
+  padding-top:15px;
+}
+
+td {
+  font-size: 1.2em;
+}
+.h {
+  font-family: 'Montserrat', sans-serif;
+  padding-right: 10px;
+  font-weight: normal;
+  color: #222;
+}
+.c {
+  font-family: Courier, serif;
+}
+
+
+h1 {
+  font-family: 'Montserrat',sans-serif;
+  font-size: 50px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  margin: 0 0 22px 0;
+  color: #fff;
+}
+h2 {
+  font-size:34px;
+  color:#ff8844;
+  font-family: 'Montserrat', sans-serif;
+  font-weight:700;
+  letter-spacing: -1px;
+  margin:0 0 15px 0;
+  text-align:center;
+  text-transform:uppercase;
+}
+.application {
+  display: relative;
+  float: left;
+  height: 135px;
+  width: 175px;
+  margin-right: 25px;
+  margin-bottom: 20px;
+}
+
+.application img {
+  height: 135px;
+  width: 175px;
+  position:absolute;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+}
+.application img.tt:hover {
+  opacity:0;
+}
+
+.demo_title {
+ position:relative;
+ top: 10px;
+ font-family: 'Montserrat', sans-serif;
+ color:#fff;
+ font-size:1.4em;
+ text-shadow: 1px 1px 5px #222;
+}
+
+.orange_button {
+ width:80px;
+ padding: 15px 35px;
+ background: #ff8844;
+ color: #fff !important;
+ font-size: 16px;
+ font-weight: 400;
+ font-family: 'Montserrat', sans-serif;
+ display: inline-block;
+ border-radius: 3px;
+ text-transform: uppercase;
+ line-height: 25px;
+ margin-bottom: 20px;
+ transition: all 0.3s ease-in-out;
+ -moz-transition: all 0.3s ease-in-out;
+ -webkit-transition: all 0.3s ease-in-out;
+}
+
+.orange_button2 {
+ width:160px;
+ padding: 15px 35px;
+ background: #ff8844;
+ color: #fff !important;
+ font-size: 16px;
+ font-weight: 400;
+ font-family: 'Montserrat', sans-serif;
+ display: inline-block;
+ border-radius: 3px;
+ text-transform: uppercase;
+ line-height: 25px;
+ margin-bottom: 20px;
+ transition: all 0.3s ease-in-out;
+ -moz-transition: all 0.3s ease-in-out;
+ -webkit-transition: all 0.3s ease-in-out;
+}
+
+</style>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/browser.js"></script>
 
 </body>
 </html>
+
+

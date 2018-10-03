@@ -7,18 +7,8 @@ describe('TRANSACTION', () => {
   const tx = new Transaction();
 
   describe('Constructor', () => {
-    it('should contain all necessary values', () => {
+    it('there is a contructor', () => {
       assert.notEqual(tx.transaction.id, undefined)
-      assert.deepEqual(tx.transaction.from, [])
-      assert.deepEqual(tx.transaction.to, [])
-      assert.equal(tx.transaction.ts, "")
-      assert.equal(tx.transaction.sig, "")
-      assert.equal(tx.transaction.ver, 1.0)
-      assert.deepEqual(tx.transaction.path, [])
-      assert.equal(tx.transaction.type, 0)
-      assert.deepEqual(tx.transaction.msg, {})
-      assert.equal(tx.transaction.msig, "")
-      assert.equal(tx.transaction.ps, 0)
     });
   });
 

@@ -17,3 +17,5 @@ lib/saito/web/browser.js
 lib/data/database.sq3
 lib/data/database.sq3-journal
 lib/saito/web/browser.js
+lib/modules/mods/appstore/saitolib/*
+

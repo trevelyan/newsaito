@@ -34,9 +34,9 @@ describe('NETWORK', () => {
     it('should increment peers_connected field', () => {});
   });
   describe('isPrivateNetwork', () => {
-    it('should return true if it is a private network', () => {
-      assert.equal(network.isPrivateNetwork(), true);
-    });
+    it(`should return false if peers are connected`, () => {});
+    it(`should return false if options contains peers`, () => {});
+    it(`else should return true`, () => {});
   });
   describe('cleanupDisconnectedSocket', () => {
     it('should not remove peers if they are in the options file', () => {});
