@@ -2,7 +2,6 @@ const assert = require('chai').assert
 
 const Big = require('big.js');
 const saito = require('../lib/saito');
-// const Block = require('../lib/saito/block');
 
 describe('BLOCK', () => {
   var app = {};
