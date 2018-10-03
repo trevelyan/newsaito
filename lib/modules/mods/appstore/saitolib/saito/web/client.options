@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"keys":[],"peers":[{"host":"localhost","port":12101,"publickey":"q5iaCSUynudivFbEsLS2wpHBpThD7sTcRtMp2tw74zXN"}],"dns":[],"blockchain":{}}
-=======
-{"keys":[],"peers":[{"host":"localhost","port":12101,"publickey":"jY6geitAMHTTLJUBJXRJtUbeJJ2U4aSW1XeX9hLKL4eA"}],"dns":[],"blockchain":{}}
->>>>>>> c3da49bdf5d3b780d2c82bf13daeb6e47a4e5c4f
+{"keys":[],"peers":[{"host":"localhost","port":12101,"publickey":"t28PqkcHLtpe4PFUwjPBk6qZYo6xDvF35VcRKquxwsDz"}],"dns":[],"blockchain":{}}
