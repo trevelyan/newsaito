@@ -12,9 +12,9 @@ describe('NETWORK', () => {
   });
 
   describe('isPrivateNetwork', () => {
-    it(`should return true if it's a private network`, () => {
-      assert.equal(network.isPrivateNetwork(), true);
-    });
+    it(`should return false if peers are connected`, () => {});
+    it(`should return false if options contains peers`, () => {});
+    it(`else should return true`, () => {});
   });
 
 });
