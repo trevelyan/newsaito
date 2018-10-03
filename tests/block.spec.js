@@ -25,6 +25,7 @@ describe('BLOCK', () => {
       assert.deepEqual(newblock.block.reclaimed, Big("0.0"))
       assert.equal(newblock.block.vote, 0)
       assert.equal(newblock.confirmations, -1)
+    });
     it('should be valid block', () => {
       assert.deepEqual(newblock.is_valid, 1)
     });
