@@ -10,6 +10,7 @@ lib/logs/*
 lib/data
 lib/data/*
 lib/options
+lib/options.conf
 lib/options.good
 lib/options.debug
 lib/options-bk
