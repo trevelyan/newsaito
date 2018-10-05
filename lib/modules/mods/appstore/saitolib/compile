@@ -38,6 +38,7 @@ if [ "$1" == "nuke" ]; then
 
 
 #  cp -rfp data/fork1/* data/blocks/
+  cp options.conf options
 
 fi
 
