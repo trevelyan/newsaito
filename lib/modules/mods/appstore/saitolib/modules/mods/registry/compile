@@ -1,5 +1,0 @@
-
-touch modules/mods/registry/web/addresses.txt
-rm -f data/registry.sq3
-rm -f modules/mods/registry/web/addresses.txt
-
