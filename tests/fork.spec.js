@@ -35,12 +35,12 @@ describe('FORK', () => {
 
   describe('should handle forked block files successfully', () => {
     it('Saves all available block files to blockchain', () => {
-      //console.log(app.blockchain);
-      assert.equal(app.blockchain.blocks.length, 9);
+      // console.log(app.blockchain);
+      assert.equal(app.blockchain.blocks.length, 10);
     });
 
     it('lc values should be total the amount of valid blocks on chain minus 1', () => {
-      assert.equal(app.blockchain.index.lc.reduce((tot, sum) => tot + sum), app.blockchain.index.bid.max());
+      assert.equal(app.blockchain.index.lc.reduce((tot, sum) => tot + sum), app.blockchain.index.bid.max() - 1);
     });
   });
 
