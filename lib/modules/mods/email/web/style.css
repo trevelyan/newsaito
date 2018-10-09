@@ -165,7 +165,8 @@
 .mail-header {
  margin-top: 20px;
  padding-bottom: 10px;
- max-width: 1275px;
+ padding-right:6px;
+ max-width: 100%;
  grid-area: mail-header;
  display: grid;
  grid-template-columns: 1fr auto 1fr;
