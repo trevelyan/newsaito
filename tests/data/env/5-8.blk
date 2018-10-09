@@ -1,0 +1,20 @@
+{
+    "ts": 1536113720373,
+    "prevhash": "1cdf7681117c4138452a54af30f699d7ab9d8dfcb12fc2e2034c8f5034ebff1c",
+    "merkle": "6e3c43f636051b044280d2d8d99f95c1e02a2a052d2a0271bfff24ba68aa557e",
+    "creator": "28mVjYhqEU7Lycv3i97gHjy8RXfMMnrrhAfegWuuT35x7",
+    "id": 5,
+    "txsjson": [
+        "{\"transaction\":{\"id\":5,\"from\":[{\"add\":\"28mVjYhqEU7Lycv3i97gHjy8RXfMMnrrhAfegWuuT35x7\",\"amt\":0,\"type\":2,\"bid\":0,\"tid\":0,\"sid\":0,\"bhash\":\"\",\"lc\":1,\"rn\":86}],\"to\":[{\"add\":\"28mVjYhqEU7Lycv3i97gHjy8RXfMMnrrhAfegWuuT35x7\",\"amt\":\"0.00000000\",\"type\":2,\"bid\":0,\"tid\":0,\"sid\":0,\"bhash\":\"\",\"lc\":1,\"rn\":35}],\"ts\":1536113720373,\"sig\":\"5jbB8EdFJFTyLgcnuXk4C7LXzyAyCKiGaPd7gcCTEoiiiTtsn4Q8ZawYfiJMqWPn8ozLgvhWyWZbtGL8HvzVEMSd\",\"msig\":\"3DNCHZnqwbmbeqjr4y53toUahKjdoH9zUNi9sbHrEYjVLivntqkZTSHyUcJXdJwtLQSpTcH9QfwCQ8KRrLpjYDdq\",\"ver\":1,\"path\":[],\"type\":2,\"msg\":{},\"ps\":0},\"fees_total\":\"\",\"fees_usable\":\"\",\"fees_publickey\":\"\",\"dmsg\":\"\",\"size\":0,\"is_valid\":1}"
+    ],
+    "bf": {
+        "start": 13.745889093343202,
+        "current": 0
+    },
+    "difficulty": 0.51,
+    "paysplit": 0.5,
+    "treasury": "3164062500.00000000",
+    "coinbase": "1054687500.00000000",
+    "reclaimed": "0.0",
+    "vote": 0
+}
